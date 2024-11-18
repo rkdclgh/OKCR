@@ -37,22 +37,17 @@ header p {
     gap: 15px; /* 각 섹션 간격 */
 }
 
+/* 파일 선택 및 URL 입력의 공통 스타일 */
 .input-group {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-}
-
-.input-group label {
-    font-size: 1rem;
-    color: #333;
-    margin-bottom: 5px;
-    text-align: center;
+    gap: 10px; /* 입력 필드와 버튼 사이 간격 */
 }
 
 .input-group input {
-    width: 80%;
-    max-width: 500px;
+    width: 70%; /* 입력 필드 너비 */
+    max-width: 400px; /* 최대 너비 */
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #ddd;
@@ -60,7 +55,7 @@ header p {
     box-sizing: border-box;
 }
 
-.upload-area button {
+.input-group button {
     padding: 10px 20px;
     font-size: 1rem;
     background-color: #007BFF;
@@ -68,12 +63,14 @@ header p {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.upload-area button:hover {
+.input-group button:hover {
     background-color: #0056b3;
 }
 
+/* 푸터 */
 footer {
     text-align: center;
     margin: 20px 0;
