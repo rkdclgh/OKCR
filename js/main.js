@@ -67,4 +67,5 @@ function renderWorkScreen(loadedImages = []) {
     setupToolboxEvents();
 }
 
+// 초기 화면 렌더링 호출
 renderMainScreen();
