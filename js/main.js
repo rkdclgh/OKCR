@@ -55,14 +55,42 @@ function renderWorkScreen(loadedImages = []) {
     images = loadedImages;
     app.innerHTML = `
         <div class="work-area">
+            <!-- 썸네일 미리보기 -->
+            <div class="thumbnail-grid">
+                ${images
+                    .map(
+                        (image, index) =>
+                            `<img class="thumbnail ${index === currentImageIndex ? 'selected' : ''}" 
+                                  src="${image}" alt="썸네일 ${index + 1}" data-index="${index}">`
+                    )
+                    .join('')}
+            </div>
+
+            <!-- 중앙 작업 화면 -->
             <div class="main-work-area">
+                <!-- 이미지 큰 화면 -->
                 <div class="image-preview">
-                    <div class="toolbox"></div>
+                    <div class="toolbox">
+                        <button class="tool-icon" id="panButton">
+                            <span class="material-icons">pan_tool</span>
+                        </button>
+                        <button class="tool-icon" id="resetButton">
+                            <span class="material-icons">restart_alt</span>
+                        </button>
+                    </div>
                     <img src="${images[currentImageIndex]}" alt="이미지 미리보기" id="previewImage">
+                </div>
+
+                <!-- OCR 작업 창 -->
+                <div class="ocr-interface">
+                    <p>OCR 결과 텍스트</p>
+                    <div id="ocrResults"></div>
                 </div>
             </div>
         </div>
     `;
+
+    setupThumbnailEvents();
     setupZoomAndPan();
     setupToolboxEvents();
 }
