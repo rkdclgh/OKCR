@@ -1,6 +1,7 @@
 const app = document.getElementById('app');
 let currentImageIndex = 0;
 let images = [];
+let scale = 1; // 이미지 확대/축소 초기값
 
 // 메인 화면 렌더링
 function renderMainScreen() {
@@ -71,25 +72,21 @@ function renderWorkScreen(loadedImages = []) {
                                 <span class="material-icons">delete</span>
                             </button>
                         </div>
-                        <div class="tool">
-                            <button class="tool-icon">
-                                <span class="material-icons">zoom_in</span>
-                            </button>
-                        </div>
                     </div>
-                    <img src="${images[currentImageIndex]}" alt="이미지 미리보기">
+                    <img src="${images[currentImageIndex]}" alt="이미지 미리보기" id="previewImage">
                 </div>
 
                 <!-- OCR 작업 창 -->
                 <div class="ocr-interface">
                     <p>OCR 결과 텍스트</p>
-                    <textarea id="ocrResult" placeholder="OCR 결과가 여기에 표시됩니다."></textarea>
+                    <div id="ocrResults"></div>
                 </div>
             </div>
         </div>
     `;
 
     setupThumbnailEvents();
+    setupZoomFunctionality();
 }
 
 // 썸네일 클릭 이벤트 설정
@@ -104,6 +101,28 @@ function setupThumbnailEvents() {
             currentImageIndex = parseInt(thumbnail.dataset.index, 10);
             imagePreview.src = images[currentImageIndex];
         });
+    });
+}
+
+// 이미지 확대/축소 설정
+function setupZoomFunctionality() {
+    const image = document.getElementById('previewImage');
+
+    image.addEventListener('wheel', (event) => {
+        event.preventDefault();
+
+        // 확대 또는 축소 비율 변경
+        if (event.deltaY < 0) {
+            scale += 0.1; // 휠 위로: 확대
+        } else {
+            scale -= 0.1; // 휠 아래로: 축소
+        }
+
+        // 최소/최대 비율 제한
+        scale = Math.min(Math.max(0.5, scale), 3);
+
+        // 이미지에 변환 적용
+        image.style.transform = `scale(${scale})`;
     });
 }
 
