@@ -26,7 +26,7 @@ uploadButton.addEventListener('click', () => {
     }
     // URL 업로드 처리
     else if (url) {
-        const allowedExtensions = /\.(jpeg|jpg|png|webp)$/i;
+        const allowedExtensions = /\.(jpeg|jpg|png|webp)(\?.*)?$/i; // 쿼리 문자열 포함 허용
         if (allowedExtensions.test(url)) {
             imagePreview.src = url; // URL을 미리보기로 설정
             imagePreview.style.display = 'block'; // 미리보기 표시
