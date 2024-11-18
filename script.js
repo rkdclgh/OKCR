@@ -7,6 +7,7 @@ function renderMainScreen() {
         <header>
             <h1>OKCR에 오신 것을 환영합니다!</h1>
             <p>이미지 파일을 업로드하거나 URL을 입력하여 작업을 시작하세요.</p>
+            <p>다양한 형태의 한글, 옛한글, 한자 텍스트를 인식할 수 있습니다.</p>
         </header>
         <section class="upload-area">
             <form id="uploadForm">
