@@ -1,4 +1,3 @@
-// DOM 요소
 const app = document.getElementById('app');
 
 // 메인 화면 렌더링
@@ -7,7 +6,6 @@ function renderMainScreen() {
         <header>
             <h1>OKCR에 오신 것을 환영합니다!</h1>
             <p>이미지 파일을 업로드하거나 URL을 입력하여 작업을 시작하세요.</p>
-            <p>다양한 형태의 한글, 옛한글, 한자 텍스트를 인식할 수 있습니다.</p>
         </header>
         <section class="upload-area">
             <form id="uploadForm">
@@ -21,6 +19,7 @@ function renderMainScreen() {
         </footer>
     `;
 
+    // 이벤트 리스너 추가
     const fileInput = document.getElementById('fileInput');
     const urlInput = document.getElementById('urlInput');
     const uploadButton = document.getElementById('uploadButton');
@@ -40,34 +39,52 @@ function renderMainScreen() {
 }
 
 // 작업 화면 렌더링
-function renderWorkScreen(images) {
+function renderWorkScreen(images = []) {
     app.innerHTML = `
-        <header>
-            <h1>작업 화면</h1>
-            <p>이미지를 선택하여 OCR 작업을 수행하세요.</p>
-        </header>
         <div class="work-area">
+            <!-- 썸네일 미리보기 -->
             <div class="thumbnail-grid">
                 ${images
                     .map(
                         (image, index) =>
-                            `<img class="thumbnail" src="${image}" data-index="${index}" alt="썸네일 ${index + 1}">`
+                            `<img class="thumbnail" src="${image}" alt="썸네일 ${index + 1}" data-index="${index}">`
                     )
                     .join('')}
             </div>
-            <div class="image-preview">
-                <img src="${images[0]}" alt="미리보기 이미지">
+
+            <!-- 작업 화면 본체 -->
+            <div class="main-work-area">
+                <!-- 이미지 큰 화면 -->
+                <div class="image-preview">
+                    <img src="${images[0] || ''}" alt="이미지 미리보기">
+                </div>
+
+                <!-- OCR 작업 창 -->
+                <div class="ocr-interface">
+                    ${images
+                        .map(
+                            (image, index) => `
+                            <div class="ocr-box">
+                                <p>OCR 결과 텍스트 ${index + 1}</p>
+                                <button>수정</button>
+                            </div>`
+                        )
+                        .join('')}
+                </div>
             </div>
-            <div class="ocr-interface">
-                <button id="startOCRButton">OCR 시작</button>
-                <textarea id="ocrResult" placeholder="OCR 결과가 여기에 표시됩니다."></textarea>
+
+            <!-- 하단 도구 -->
+            <div class="toolbar">
+                <button id="addBox">OCR 박스 추가</button>
+                <button id="removeBox">OCR 박스 삭제</button>
+                <button id="zoomIn">확대</button>
+                <button id="zoomOut">축소</button>
+                <button id="nextImage">다음 이미지</button>
             </div>
         </div>
-        <footer>
-            <a href="https://github.com/rkdclgh/OKCR" target="_blank">Github에서 프로젝트 보기</a>
-        </footer>
     `;
 
+    // 이벤트 리스너 추가
     const thumbnails = document.querySelectorAll('.thumbnail');
     const imagePreview = document.querySelector('.image-preview img');
 
@@ -79,9 +96,8 @@ function renderWorkScreen(images) {
         });
     });
 
-    document.getElementById('startOCRButton').addEventListener('click', () => {
-        const ocrResult = document.getElementById('ocrResult');
-        ocrResult.value = 'OCR 처리 중...'; // OCR 로직 추가 예정
+    document.getElementById('nextImage').addEventListener('click', () => {
+        alert('다음 이미지로 이동합니다.'); // 실제 구현 시 작업 추가
     });
 }
 
