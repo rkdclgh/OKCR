@@ -14,20 +14,24 @@ export function setupZoomAndPan() {
     });
 
     previewContainer.addEventListener('mousedown', (event) => {
+        if (!isPanning) return;
+    
+        previewContainer.style.cursor = 'grabbing'; // Pan 시작 시 커서 변경
         const startX = event.clientX - translateX;
         const startY = event.clientY - translateY;
-
+    
         const onMouseMove = (e) => {
             translateX = e.clientX - startX;
             translateY = e.clientY - startY;
             updateImageTransform(image);
         };
-
+    
         const onMouseUp = () => {
+            previewContainer.style.cursor = 'grab'; // Pan 종료 시 커서 복구
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
         };
-
+    
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
     });
