@@ -26,26 +26,32 @@ uploadButton.addEventListener('click', () => {
     }
     // URL 업로드 처리
     else if (url) {
-        // fetch를 사용해 이미지 데이터를 가져옴
-        fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('이미지를 불러올 수 없습니다.');
-                }
-                return response.blob(); // Blob 객체로 변환
-            })
-            .then(blob => {
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                    imagePreview.src = reader.result; // Base64 데이터로 설정
-                    imagePreview.style.display = 'block'; // 미리보기 표시
-                };
-                reader.readAsDataURL(blob); // Blob 데이터를 Base64로 변환
-            })
-            .catch(error => {
-                console.error('이미지를 불러오는 중 문제가 발생했습니다:', error);
-                alert('유효한 이미지 URL을 입력하세요.');
-            });
+        const allowedExtensions = /\.(jpeg|jpg|png|webp)(\?.*)?$/i; // 쿼리 문자열 포함 허용
+        if (allowedExtensions.test(url)) {
+            // fetch로 이미지 데이터를 요청
+            fetch(url, { mode: 'cors' })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('이미지를 불러올 수 없습니다.');
+                    }
+                    return response.blob(); // Blob 객체로 변환
+                })
+                .then(blob => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        imagePreview.src = reader.result; // Base64 데이터로 설정
+                        imagePreview.style.display = 'block'; // 미리보기 표시
+                    };
+                    reader.readAsDataURL(blob); // Blob 데이터를 Base64로 변환
+                })
+                .catch(error => {
+                    console.error('이미지를 불러오는 중 문제가 발생했습니다:', error);
+                    alert('CORS 문제로 이미지를 로드할 수 없습니다. 다른 URL을 시도해보세요.');
+                });
+        } else {
+            alert('유효한 이미지 URL을 입력하세요.');
+            urlInput.value = ''; // URL 입력 초기화
+        }
     } else {
         alert('파일을 선택하거나 이미지 URL을 입력하세요.');
     }
