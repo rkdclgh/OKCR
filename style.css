@@ -83,7 +83,7 @@ footer a:hover {
     text-decoration: underline;
 }
 
-/* 작업 화면 */
+/* 작업 화면 레이아웃 */
 .work-area {
     display: flex;
     flex-direction: column;
@@ -93,6 +93,7 @@ footer a:hover {
     margin: 0 auto;
 }
 
+/* 썸네일 미리보기 */
 .thumbnail-grid {
     display: flex;
     gap: 10px;
@@ -114,27 +115,46 @@ footer a:hover {
     border-color: #007BFF;
 }
 
+/* 중앙 작업 화면 레이아웃 */
 .main-work-area {
     display: flex;
     flex-direction: row;
-    gap: 20px;
     width: 100%;
+    height: 500px;
 }
 
-/* 이미지 큰 화면 */
+/* 이미지 큰 화면 - 좌측 */
 .image-preview {
-    flex: 2;
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1px solid #ddd;
     border-radius: 5px;
-    height: 400px;
     background-color: #fff;
+    height: 100%;
     position: relative;
+    overflow: hidden; /* 이미지가 부모 영역을 벗어나지 않도록 설정 */
 }
 
-/* 툴박스 */
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* 이미지 비율을 유지하면서 화면에 맞게 조정 */
+}
+
+/* OCR 작업 창 - 우측 */
+.ocr-interface {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    height: 100%;
+    overflow-y: auto;
+}
+
+/* 툴박스 스타일 */
 .toolbox {
     position: absolute;
     top: 10px;
@@ -179,17 +199,10 @@ footer a:hover {
     color: white;
 }
 
-/* OCR 작업 창 */
-.ocr-interface {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
+/* 텍스트 박스 */
 textarea {
     width: 100%;
-    height: 150px;
+    height: calc(100% - 40px);
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 10px;
