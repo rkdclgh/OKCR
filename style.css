@@ -81,3 +81,45 @@ a {
 a:hover {
     text-decoration: underline; /* 링크 밑줄 표시 */
 }
+
+/* 파일 선택과 URL 입력 섹션의 레이아웃 */
+form, #urlUploadContainer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* URL 입력 필드 스타일 */
+#urlInput {
+    width: 80%;
+    max-width: 400px;
+    padding: 10px;
+    font-family: 'Pretendard', Arial, sans-serif;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+/* URL 입력 버튼 스타일 */
+#urlButton {
+    background-color: #007BFF;
+    color: white;
+    font-family: 'Pretendard', Arial, sans-serif;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#urlButton:hover {
+    background-color: #0056b3;
+}
+
+/* "또는" 텍스트 스타일 */
+#urlUploadContainer p {
+    font-size: 1rem;
+    color: #666;
+    margin: 10px 0;
+}
