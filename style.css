@@ -1,4 +1,5 @@
 /* Pretendard 폰트 불러오기 */
+/* Pretendard 폰트 불러오기 */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
 /* 공통 스타일 */
@@ -13,39 +14,27 @@ body {
     min-height: 100vh;
 }
 
-header {
-    text-align: center;
-    margin: 20px 0;
-}
-
-header h1 {
-    font-size: 2rem;
-    color: #007BFF;
-}
-
-header p {
-    font-size: 1rem;
-    color: #555;
-}
-
-/* 업로드 영역 */
-.upload-area {
-    text-align: center;
+#app {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     padding: 20px;
 }
 
-.upload-area form {
+/* 메인 화면 스타일 */
+.upload-area {
+    text-align: center;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px; /* 입력 필드와 버튼 사이 간격 */
+    flex-direction: column;
+    gap: 10px;
+    max-width: 600px;
+    width: 100%;
 }
 
 .upload-area input {
-    width: 40%; /* 입력 필드 너비 */
-    max-width: 300px;
+    width: 100%;
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #ddd;
@@ -67,54 +56,54 @@ header p {
     background-color: #0056b3;
 }
 
-footer {
-    text-align: center;
-    margin: 20px 0;
-}
-
-/* 팝업 스타일 */
-.popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+/* 작업 화면 스타일 */
+.work-area {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 20px;
 }
 
-.popup {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
+.thumbnail-grid {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    overflow-x: auto;
 }
 
-.popup button {
-    margin: 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
+.thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 2px solid transparent;
     cursor: pointer;
 }
 
-.popup button.yes {
-    background-color: #007BFF;
-    color: white;
+.thumbnail.selected {
+    border-color: #007BFF;
 }
 
-.popup button.no {
-    background-color: #f44336;
-    color: white;
+.image-preview {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    height: 400px;
 }
 
-.popup button:hover {
-    opacity: 0.8;
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.ocr-interface {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
