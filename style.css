@@ -32,13 +32,28 @@ header p {
 .upload-area {
     text-align: center;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* 각 섹션 간격 */
 }
 
-.upload-area input {
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-group label {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.input-group input {
     width: 80%;
     max-width: 500px;
     padding: 10px;
-    margin: 10px 0;
     font-size: 1rem;
     border: 1px solid #ddd;
     border-radius: 5px;
