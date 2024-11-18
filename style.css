@@ -1,5 +1,4 @@
 /* Pretendard 폰트 불러오기 */
-/* Pretendard 폰트 불러오기 */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
 /* 공통 스타일 */
@@ -16,26 +15,40 @@ body {
 
 #app {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     padding: 20px;
 }
 
-/* 메인 화면 스타일 */
+/* 헤더 스타일 */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #007BFF;
+    margin: 0;
+}
+
+header p {
+    font-size: 1rem;
+    color: #555;
+    margin: 10px 0 0 0;
+}
+
+/* 업로드 영역 */
 .upload-area {
     text-align: center;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
-    max-width: 600px;
-    width: 100%;
 }
 
 .upload-area input {
-    width: 100%;
-    padding: 10px;
+    width: 80%;
+    max-width: 400px;
+    padding: 12px;
     font-size: 1rem;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -56,22 +69,21 @@ body {
     background-color: #0056b3;
 }
 
-/* 작업 화면 스타일 */
+/* 작업 화면 */
 .work-area {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 20px;
     width: 100%;
     max-width: 1200px;
-    margin-top: 20px;
+    margin: 0 auto;
 }
 
 .thumbnail-grid {
-    flex: 1;
     display: flex;
-    flex-direction: row;
     gap: 10px;
     overflow-x: auto;
+    justify-content: center;
 }
 
 .thumbnail {
@@ -80,6 +92,7 @@ body {
     object-fit: cover;
     border: 2px solid transparent;
     cursor: pointer;
+    transition: border-color 0.3s ease;
 }
 
 .thumbnail.selected {
@@ -87,12 +100,13 @@ body {
 }
 
 .image-preview {
-    flex: 2;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1px solid #ddd;
     border-radius: 5px;
+    padding: 10px;
+    background-color: #fff;
     height: 400px;
 }
 
@@ -102,8 +116,34 @@ body {
 }
 
 .ocr-interface {
-    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    align-items: center;
+}
+
+.ocr-interface button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.ocr-interface button:hover {
+    background-color: #0056b3;
+}
+
+.ocr-interface textarea {
+    width: 80%;
+    max-width: 600px;
+    height: 150px;
+    font-size: 1rem;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    resize: none;
 }
