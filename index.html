@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>OKCR</title>
+    <!-- 문서의 문자 인코딩을 UTF-8로 설정 (한글 등 다양한 문자를 지원) -->
+    <meta charset="UTF-8">
+    <!-- 뷰포트 설정: 반응형 웹사이트를 지원하며 모든 장치에서 적절히 표시 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 문서 제목: 브라우저 탭 및 검색엔진에 표시될 이름 -->
+    <title>OKCR - OCR Project</title>
+    <!-- CSS 파일 연결: style.css를 로드하여 스타일 적용 -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- 주요 제목 영역 -->
     <h1>OKCR에 오신 것을 환영합니다!</h1>
-    <p>OKCR 프로젝트의 메인 화면입니다.</p>
+    <!-- 본문 텍스트: 프로젝트 설명 -->
+    <p>
+        OKCR은 옛한글을 포함한 한글 텍스트 인식을 위해 만들어진 OCR 프로젝트입니다.
+    </p>
+    <!-- 파일 업로드 입력 필드 -->
+    <form action="#" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".jpg, .png, .pdf">
+        <button type="submit">파일 올리기</button>
+    </form>
+    <!-- 하단 링크: GitHub 저장소로 연결 -->
+    <a href="https://github.com/rkdclgh/OKCR" target="_blank">
+        Github에서 프로젝트 보기
+    </a>
 </body>
 </html>
