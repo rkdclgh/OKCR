@@ -1,87 +1,112 @@
-/* Pretendard 웹폰트를 CDN에서 불러옴.
-   폰트 적용이 안 될 경우 Arial 및 기본 sans-serif로 대체됨. */
+/* Pretendard 폰트 불러오기 */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
-/* 전체 페이지 스타일 */
+/* 공통 스타일 */
 body {
-    font-family: 'Pretendard', Arial, sans-serif; /* 기본 글꼴 설정 */
-    background-color: #f9f9f9; /* 부드러운 배경색 */
-    color: #333; /* 본문 텍스트 색상 */
+    font-family: 'Pretendard', Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh; /* 화면 전체를 채우도록 설정 */
+    min-height: 100vh;
+}
+
+header {
     text-align: center;
+    margin: 20px 0;
 }
 
-/* 제목 스타일 */
-h1 {
-    font-size: 2.5rem; /* 제목 크기 */
-    color: #007BFF; /* 파란색 제목 */
-    margin-bottom: 10px;
+header h1 {
+    font-size: 2rem;
+    color: #007BFF;
 }
 
-/* 본문 텍스트 스타일 */
-p {
+header p {
     font-size: 1rem;
-    line-height: 1.6; /* 가독성을 위한 줄 간격 */
-    margin: 10px 0;
-    color: #555; /* 본문 색상 */
+    color: #555;
 }
 
-/* 업로드 섹션 스타일 */
-#uploadSection {
-    display: flex;
-    flex-direction: column; /* 수직 배치 */
-    align-items: center; /* 중앙 정렬 */
-    margin-top: 20px;
-    gap: 10px; /* 입력 필드 간격 */
+/* 업로드 영역 */
+.upload-area {
+    text-align: center;
+    padding: 20px;
 }
 
-/* 입력 필드 스타일 */
-#fileInput, #urlInput {
-    width: 100%;
+.upload-area input {
+    width: 80%;
     max-width: 500px;
     padding: 10px;
-    font-family: 'Pretendard', Arial, sans-serif;
+    margin: 10px 0;
     font-size: 1rem;
-    border: 1px solid #ddd; /* 테두리 설정 */
-    border-radius: 5px; /* 모서리를 둥글게 처리 */
-    box-sizing: border-box; /* 패딩 포함 크기 계산 */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
-/* 업로드 버튼 스타일 */
-#uploadButton {
+.upload-area button {
+    padding: 10px 20px;
+    font-size: 1rem;
     background-color: #007BFF;
     color: white;
-    font-family: 'Pretendard', Arial, sans-serif;
-    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.upload-area button:hover {
+    background-color: #0056b3;
+}
+
+footer {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* 팝업 스타일 */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+}
+
+.popup button {
+    margin: 10px;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px; /* 모서리를 둥글게 처리 */
-    cursor: pointer; /* 클릭 가능한 손 모양 포인터 */
-    transition: background-color 0.3s ease; /* 배경색 전환 효과 */
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
-#uploadButton:hover {
-    background-color: #0056b3; /* 호버 시 어두운 파란색 */
+.popup button.yes {
+    background-color: #007BFF;
+    color: white;
 }
 
-/* 미리보기 컨테이너 */
-#previewContainer {
-    margin-top: 20px; /* 위쪽 여백 */
-    text-align: center; /* 텍스트 중앙 정렬 */
+.popup button.no {
+    background-color: #f44336;
+    color: white;
 }
 
-#imagePreview {
-    margin-top: 10px; /* 위쪽 여백 */
-    max-width: 100%; /* 이미지 너비를 부모 요소에 맞춤 */
-    max-height: 400px; /* 이미지 최대 높이 설정 */
-    border: 1px solid #ddd; /* 테두리 추가 */
-    border-radius: 5px; /* 모서리를 둥글게 처리 */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
-    display: none; /* 기본적으로 숨김 */
+.popup button:hover {
+    opacity: 0.8;
 }
