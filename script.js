@@ -1,56 +1,100 @@
-// 입력 필드 및 버튼 선택
-const fileInput = document.getElementById('fileInput');
-const urlInput = document.getElementById('urlInput');
-const uploadButton = document.getElementById('uploadButton');
-const popupContainer = document.getElementById('popupContainer');
+// DOM 요소
+const app = document.getElementById('app');
 
-// 파일 업로드 또는 URL 입력 후 팝업 표시
-uploadButton.addEventListener('click', () => {
-    const files = fileInput.files;
-    const url = urlInput.value.trim();
+// 메인 화면 렌더링
+function renderMainScreen() {
+    app.innerHTML = `
+        <header>
+            <h1>OKCR에 오신 것을 환영합니다!</h1>
+            <p>이미지 파일을 업로드하거나 URL을 입력하여 작업을 시작하세요.</p>
+            <p>다양한 형태의 한글, 옛한글, 한자 텍스트를 인식할 수 있습니다.</p>
+        </header>
+        <section class="upload-area">
+            <form id="uploadForm">
+                <input type="file" id="fileInput" name="files" accept=".jpg, .png, .pdf" multiple>
+                <input type="text" id="urlInput" placeholder="이미지 URL을 입력하세요">
+                <button type="button" id="uploadButton">파일 올리기</button>
+            </form>
+        </section>
+    `;
 
-    if (files.length > 0) {
-        showPopup(files);
-    } else if (url) {
-        showPopup([url]);
-    } else {
-        alert('파일을 선택하거나 이미지 URL을 입력하세요.');
-    }
-});
+    // 이벤트 리스너 추가
+    const fileInput = document.getElementById('fileInput');
+    const urlInput = document.getElementById('urlInput');
+    const uploadButton = document.getElementById('uploadButton');
 
-// 팝업 생성 함수
-function showPopup(items) {
-    // 팝업 HTML 생성
-    popupContainer.innerHTML = `
-        <div class="popup-overlay">
-            <div class="popup">
-                <h2>업로드 확인</h2>
-                <p>이 이미지를 사용해 작업을 진행하시겠습니까?</p>
-                <button class="yes">예</button>
-                <button class="no">아니오</button>
+    uploadButton.addEventListener('click', () => {
+        const files = fileInput.files;
+        const url = urlInput.value.trim();
+
+        if (files.length > 0) {
+            handleFiles(Array.from(files));
+        } else if (url) {
+            handleFiles([url]);
+        } else {
+            alert('파일을 선택하거나 이미지 URL을 입력하세요.');
+        }
+    });
+}
+
+// 작업 화면 렌더링
+function renderWorkScreen(images) {
+    app.innerHTML = `
+        <header>
+            <h1>작업 화면</h1>
+            <p>이미지를 선택하여 OCR 작업을 수행하세요.</p>
+        </header>
+        <div class="work-area">
+            <!-- 썸네일 그리드 -->
+            <div class="thumbnail-grid">
+                ${images
+                    .map(
+                        (image, index) =>
+                            `<img class="thumbnail" src="${image}" data-index="${index}" alt="썸네일 ${index + 1}">`
+                    )
+                    .join('')}
+            </div>
+            <!-- 이미지 미리보기 -->
+            <div class="image-preview">
+                <img src="${images[0]}" alt="미리보기 이미지">
+            </div>
+            <!-- OCR 인터페이스 -->
+            <div class="ocr-interface">
+                <button id="startOCRButton">OCR 시작</button>
+                <textarea id="ocrResult" placeholder="OCR 결과가 여기에 표시됩니다."></textarea>
             </div>
         </div>
     `;
 
-    // 팝업 동작 설정
-    const yesButton = document.querySelector('.popup .yes');
-    const noButton = document.querySelector('.popup .no');
+    // 썸네일 클릭 이벤트 추가
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    const imagePreview = document.querySelector('.image-preview img');
+    thumbnails.forEach((thumbnail) => {
+        thumbnail.addEventListener('click', () => {
+            // 썸네일 선택 강조
+            thumbnails.forEach((thumb) => thumb.classList.remove('selected'));
+            thumbnail.classList.add('selected');
 
-    // "예" 버튼 클릭 시
-    yesButton.addEventListener('click', () => {
-        popupContainer.innerHTML = ''; // 팝업 제거
-        navigateToWorkArea(items); // 작업 화면으로 이동
+            // 이미지 미리보기 업데이트
+            imagePreview.src = thumbnail.src;
+        });
     });
 
-    // "아니오" 버튼 클릭 시
-    noButton.addEventListener('click', () => {
-        popupContainer.innerHTML = ''; // 팝업 제거
-        fileInput.value = ''; // 입력 초기화
-        urlInput.value = ''; // URL 초기화
+    // OCR 시작 버튼 이벤트
+    const startOCRButton = document.getElementById('startOCRButton');
+    startOCRButton.addEventListener('click', () => {
+        const ocrResult = document.getElementById('ocrResult');
+        ocrResult.value = 'OCR 처리 중...'; // 실제 OCR 로직을 추가하세요.
     });
 }
 
-// 작업 화면으로 이동 함수
-function navigateToWorkArea(items) {
-    alert(`작업 화면으로 이동합니다. 처리할 항목: ${items.length}`);
+// 파일 처리 함수
+function handleFiles(files) {
+    const images = files.map((file) =>
+        typeof file === 'string' ? file : URL.createObjectURL(file)
+    );
+    renderWorkScreen(images);
 }
+
+// 초기 화면 렌더링
+renderMainScreen();
