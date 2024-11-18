@@ -16,12 +16,16 @@
     <main>
         <section class="upload-area">
             <form id="uploadForm">
-                <!-- 여러 이미지 및 PDF 업로드 지원 -->
+                <!-- 여러 이미지 및 PDF 업로드 -->
                 <input type="file" id="fileInput" name="files" accept=".jpg, .png, .pdf" multiple>
+                <!-- 이미지 URL 입력 -->
                 <input type="text" id="urlInput" placeholder="이미지 URL을 입력하세요">
+                <!-- 업로드 버튼 -->
                 <button type="button" id="uploadButton">파일 올리기</button>
             </form>
         </section>
+        <!-- 팝업이 동적으로 삽입될 영역 -->
+        <div id="popupContainer"></div>
     </main>
     <footer>
         <a href="https://github.com/rkdclgh/OKCR" target="_blank">Github에서 프로젝트 보기</a>
