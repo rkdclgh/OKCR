@@ -1,8 +1,44 @@
 // 입력 필드 및 버튼 선택
 const fileInput = document.getElementById('fileInput'); // 파일 선택 필드
 const urlInput = document.getElementById('urlInput');   // URL 입력 필드
-const imagePreview = document.getElementById('imagePreview'); // 미리보기 이미지
 const uploadButton = document.getElementById('uploadButton'); // 업로드 버튼
+
+// 새 창에 이미지 미리보기를 띄우는 함수
+function openPreviewWindow(imageSrc) {
+    // 새 창 생성
+    const previewWindow = window.open('', '_blank');
+    // 새 창의 HTML 콘텐츠 설정
+    previewWindow.document.write(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>미리보기</title>
+            <style>
+                body {
+                    margin: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    background-color: #f9f9f9;
+                }
+                img {
+                    max-width: 90%;
+                    max-height: 90%;
+                    border: 1px solid #ddd;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                    border-radius: 5px;
+                }
+            </style>
+        </head>
+        <body>
+            <img src="${imageSrc}" alt="미리보기 이미지">
+        </body>
+        </html>
+    `);
+}
 
 // 업로드 버튼 클릭 시 처리
 uploadButton.addEventListener('click', () => {
@@ -15,8 +51,7 @@ uploadButton.addEventListener('click', () => {
         if (allowedTypes.includes(file.type)) {
             const reader = new FileReader();
             reader.onload = function (e) {
-                imagePreview.src = e.target.result; // 파일의 Data URL 설정
-                imagePreview.style.display = 'block'; // 미리보기 표시
+                openPreviewWindow(e.target.result); // 새 창에 미리보기 띄우기
             };
             reader.readAsDataURL(file); // 파일을 Data URL로 읽음
         } else {
@@ -28,26 +63,7 @@ uploadButton.addEventListener('click', () => {
     else if (url) {
         const allowedExtensions = /\.(jpeg|jpg|png|webp)(\?.*)?$/i; // 쿼리 문자열 포함 허용
         if (allowedExtensions.test(url)) {
-            // fetch로 이미지 데이터를 요청
-            fetch(url, { mode: 'cors' })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('이미지를 불러올 수 없습니다.');
-                    }
-                    return response.blob(); // Blob 객체로 변환
-                })
-                .then(blob => {
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                        imagePreview.src = reader.result; // Base64 데이터로 설정
-                        imagePreview.style.display = 'block'; // 미리보기 표시
-                    };
-                    reader.readAsDataURL(blob); // Blob 데이터를 Base64로 변환
-                })
-                .catch(error => {
-                    console.error('이미지를 불러오는 중 문제가 발생했습니다:', error);
-                    alert('CORS 문제로 이미지를 로드할 수 없습니다. 다른 URL을 시도해보세요.');
-                });
+            openPreviewWindow(url); // 새 창에 미리보기 띄우기
         } else {
             alert('유효한 이미지 URL을 입력하세요.');
             urlInput.value = ''; // URL 입력 초기화
