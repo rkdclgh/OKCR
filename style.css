@@ -135,28 +135,31 @@ footer a:hover {
     background-color: #fff;
     height: 100%;
     position: relative;
-    overflow: hidden; /* 이미지가 부모 영역을 벗어나지 않도록 설정 */
+    overflow: hidden;
 }
 
 .image-preview img {
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain; /* 이미지 비율 유지 */
-    transform: scale(1); /* 초기 확대/축소 비율 설정 */
-    transition: transform 0.3s ease; /* 부드러운 확대/축소 효과 */
+    object-fit: contain;
+    transform: translate(0, 0) scale(1);
+    transition: transform 0.1s ease;
+    cursor: default;
 }
 
-/* 툴박스 - 이미지 하단 */
+/* 툴박스 - 이미지 상단 */
 .toolbox {
     display: flex;
     gap: 10px;
-    justify-content: center;
-    padding: 5px 0;
-    background-color: rgba(255, 255, 255, 0.9);
-    width: 100%;
-    border-top: 1px solid #ddd;
     position: absolute;
-    bottom: 0;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 5px 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .tool-icon {
