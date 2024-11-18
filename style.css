@@ -136,6 +136,11 @@ footer a:hover {
     height: 100%;
     position: relative;
     overflow: hidden;
+    cursor: grab; /* 기본 상태에서 Pan을 위한 커서 */
+}
+
+.image-preview:active {
+    cursor: grabbing; /* 마우스 클릭 시 커서 */
 }
 
 .image-preview img {
