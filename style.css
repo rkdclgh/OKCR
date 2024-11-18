@@ -18,7 +18,7 @@ body {
     padding: 20px;
 }
 
-/* 헤더 스타일 */
+/* 메인 화면 */
 header {
     text-align: center;
     margin-bottom: 20px;
@@ -36,7 +36,6 @@ header p {
     margin: 10px 0 0 0;
 }
 
-/* 업로드 영역 */
 .upload-area {
     text-align: center;
     display: flex;
@@ -69,7 +68,6 @@ header p {
     background-color: #0056b3;
 }
 
-/* 링크 스타일 */
 footer {
     text-align: center;
     margin-top: 20px;
@@ -85,7 +83,7 @@ footer a:hover {
     text-decoration: underline;
 }
 
-/* 작업 화면 레이아웃 */
+/* 작업 화면 */
 .work-area {
     display: flex;
     flex-direction: column;
@@ -95,7 +93,6 @@ footer a:hover {
     margin: 0 auto;
 }
 
-/* 썸네일 미리보기 */
 .thumbnail-grid {
     display: flex;
     gap: 10px;
@@ -117,7 +114,6 @@ footer a:hover {
     border-color: #007BFF;
 }
 
-/* 작업 화면 본체 */
 .main-work-area {
     display: flex;
     flex-direction: row;
@@ -135,71 +131,78 @@ footer a:hover {
     border-radius: 5px;
     height: 400px;
     background-color: #fff;
+    position: relative;
 }
 
-.image-preview img {
-    max-width: 100%;
-    max-height: 100%;
-}
-
-/* OCR 작업 창 */
-.ocr-interface {
-    flex: 1;
+/* 툴박스 */
+.toolbox {
+    position: absolute;
+    top: 10px;
+    left: 10px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.ocr-box {
+.tool {
+    position: relative;
+}
+
+.tool-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 50%;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tool-icon:hover {
+    background-color: #007BFF;
+    border-color: #0056b3;
+}
+
+.tool-icon img {
+    width: 24px;
+    height: 24px;
+}
+
+.tool:hover .tool-menu {
+    display: flex;
+}
+
+.tool-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #fff;
+    padding: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.ocr-box p {
-    margin: 0;
-    font-size: 0.9rem;
-    flex: 1;
-}
-
-.ocr-box button {
-    padding: 5px 10px;
-    font-size: 0.9rem;
-    background-color: #007BFF;
-    color: white;
+.tool-menu button {
+    background-color: transparent;
     border: none;
-    border-radius: 5px;
+    font-size: 0.9rem;
+    padding: 5px;
     cursor: pointer;
+    text-align: left;
 }
 
-.ocr-box button:hover {
-    background-color: #0056b3;
+.tool-menu button:hover {
+    background-color: #f1f1f1;
 }
-
-/* 하단 도구 */
-.toolbar {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.toolbar button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.toolbar button:hover {
-    background-color: #0056b3;
-}
-
