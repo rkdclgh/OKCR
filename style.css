@@ -1,0 +1,76 @@
+/* Pretendard 웹폰트를 CDN에서 불러옴.
+   폰트 적용이 안 될 경우 Arial 및 기본 sans-serif로 대체됨. */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+/* 전체 페이지의 기본 스타일 지정 */
+body {
+    font-family: 'Pretendard', Arial, sans-serif; /* 기본 글꼴 설정 */
+    background-color: #f4f4f4; /* 배경색 설정: 부드러운 회색 (#f4f4f4) */
+    color: #333; /* 텍스트 기본 색상: 진한 회색 (#333) */
+    margin: 0; /* 페이지 기본 여백 제거 */
+    padding: 0; /* 페이지 기본 패딩 제거 */
+    display: flex; /* Flexbox를 사용하여 콘텐츠 정렬 */
+    flex-direction: column; /* Flexbox를 수직 방향으로 배치 */
+    align-items: center; /* 모든 콘텐츠를 가로 방향 중앙 정렬 */
+    justify-content: center; /* 모든 콘텐츠를 세로 방향 중앙 정렬 */
+    min-height: 100vh; /* 화면 높이 전체를 채우도록 설정 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+/* 제목(h1) 스타일 지정 */
+h1 {
+    font-size: 3rem; /* 제목 글꼴 크기: 48px */
+    color: #007BFF; /* 제목 글자 색상: 파란색 (#007BFF) */
+    margin-bottom: 20px; /* 제목 아래쪽 여백: 20px */
+}
+
+/* 본문 텍스트(p) 스타일 지정 */
+p {
+    font-size: 1.2rem; /* 본문 글꼴 크기: 약 19.2px */
+    line-height: 1.6; /* 줄 간격을 기본 글꼴 크기의 1.6배로 설정 */
+    margin: 10px 0; /* 상하 여백 10px, 좌우 여백 없음 */
+}
+
+/* 버튼 스타일 지정 */
+button {
+    background-color: #007BFF; /* 버튼 배경색: 파란색 (#007BFF) */
+    color: white; /* 버튼 글자 색상: 흰색 */
+    font-family: 'Pretendard', Arial, sans-serif; /* 버튼 글꼴 설정 */
+    font-size: 1rem; /* 버튼 글꼴 크기: 약 16px */
+    font-weight: 600; /* 버튼 글꼴 두께: 굵게 (600) */
+    padding: 10px 20px; /* 버튼 내부 여백: 위아래 10px, 좌우 20px */
+    border: none; /* 버튼 테두리 제거 */
+    border-radius: 5px; /* 버튼 모서리를 둥글게 설정: 반지름 5px */
+    cursor: pointer; /* 마우스 포인터를 클릭 가능한 손 모양으로 변경 */
+    transition: background-color 0.3s ease; /* 배경색 전환 애니메이션 추가 */
+}
+
+/* 버튼에 마우스를 올렸을 때의 스타일 지정 */
+button:hover {
+    background-color: #0056b3; /* 호버 시 배경색: 어두운 파란색 (#0056b3) */
+}
+
+/* 파일 업로드 입력 필드 스타일 지정 */
+input[type="file"] {
+    margin-top: 20px; /* 입력 필드 위쪽 여백: 20px */
+    padding: 10px; /* 입력 필드 내부 여백: 10px */
+    font-family: 'Pretendard', Arial, sans-serif; /* 입력 필드 글꼴 설정 */
+    font-size: 1rem; /* 입력 필드 글꼴 크기: 약 16px */
+    border: 1px solid #ddd; /* 입력 필드 테두리: 옅은 회색 (#ddd), 1px 두께 */
+    border-radius: 5px; /* 입력 필드 모서리를 둥글게 설정: 반지름 5px */
+    width: 80%; /* 입력 필드 너비: 부모 요소의 80% */
+    max-width: 400px; /* 입력 필드 최대 너비: 400px */
+}
+
+/* 하단 링크(a 태그) 스타일 지정 */
+a {
+    font-size: 0.9rem; /* 링크 글꼴 크기: 약 14.4px */
+    color: #007BFF; /* 링크 텍스트 색상: 파란색 (#007BFF) */
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    margin-top: 20px; /* 링크 위쪽 여백: 20px */
+}
+
+/* 링크에 마우스를 올렸을 때의 스타일 지정 */
+a:hover {
+    text-decoration: underline; /* 링크 밑줄 표시 */
+}
