@@ -1,4 +1,6 @@
 const app = document.getElementById('app');
+let currentImageIndex = 0;
+let images = [];
 
 // 메인 화면 렌더링
 function renderMainScreen() {
@@ -39,52 +41,55 @@ function renderMainScreen() {
 }
 
 // 작업 화면 렌더링
-function renderWorkScreen(images = []) {
+function renderWorkScreen(loadedImages = []) {
+    images = loadedImages;
     app.innerHTML = `
         <div class="work-area">
-            <!-- 썸네일 미리보기 -->
             <div class="thumbnail-grid">
                 ${images
                     .map(
                         (image, index) =>
-                            `<img class="thumbnail" src="${image}" alt="썸네일 ${index + 1}" data-index="${index}">`
+                            `<img class="thumbnail ${index === currentImageIndex ? 'selected' : ''}" 
+                                  src="${image}" alt="썸네일 ${index + 1}" data-index="${index}">`
                     )
                     .join('')}
             </div>
 
-            <!-- 작업 화면 본체 -->
             <div class="main-work-area">
-                <!-- 이미지 큰 화면 -->
                 <div class="image-preview">
-                    <img src="${images[0] || ''}" alt="이미지 미리보기">
+                    <div class="toolbox">
+                        <div class="tool">
+                            <button class="tool-icon">
+                                <span class="material-icons">add_box</span>
+                            </button>
+                        </div>
+                        <div class="tool">
+                            <button class="tool-icon">
+                                <span class="material-icons">delete</span>
+                            </button>
+                        </div>
+                        <div class="tool">
+                            <button class="tool-icon">
+                                <span class="material-icons">zoom_in</span>
+                            </button>
+                        </div>
+                    </div>
+                    <img src="${images[currentImageIndex]}" alt="이미지 미리보기">
                 </div>
 
-                <!-- OCR 작업 창 -->
                 <div class="ocr-interface">
-                    ${images
-                        .map(
-                            (image, index) => `
-                            <div class="ocr-box">
-                                <p>OCR 결과 텍스트 ${index + 1}</p>
-                                <button>수정</button>
-                            </div>`
-                        )
-                        .join('')}
+                    <p>OCR 결과 텍스트</p>
+                    <textarea id="ocrResult" placeholder="OCR 결과가 여기에 표시됩니다."></textarea>
                 </div>
-            </div>
-
-            <!-- 하단 도구 -->
-            <div class="toolbar">
-                <button id="addBox">OCR 박스 추가</button>
-                <button id="removeBox">OCR 박스 삭제</button>
-                <button id="zoomIn">확대</button>
-                <button id="zoomOut">축소</button>
-                <button id="nextImage">다음 이미지</button>
             </div>
         </div>
     `;
 
-    // 이벤트 리스너 추가
+    setupThumbnailEvents();
+}
+
+// 썸네일 클릭 이벤트 설정
+function setupThumbnailEvents() {
     const thumbnails = document.querySelectorAll('.thumbnail');
     const imagePreview = document.querySelector('.image-preview img');
 
@@ -92,21 +97,18 @@ function renderWorkScreen(images = []) {
         thumbnail.addEventListener('click', () => {
             thumbnails.forEach((thumb) => thumb.classList.remove('selected'));
             thumbnail.classList.add('selected');
-            imagePreview.src = thumbnail.src;
+            currentImageIndex = parseInt(thumbnail.dataset.index, 10);
+            imagePreview.src = images[currentImageIndex];
         });
-    });
-
-    document.getElementById('nextImage').addEventListener('click', () => {
-        alert('다음 이미지로 이동합니다.'); // 실제 구현 시 작업 추가
     });
 }
 
 // 파일 처리 함수
 function handleFiles(files) {
-    const images = files.map((file) =>
+    const loadedImages = files.map((file) =>
         typeof file === 'string' ? file : URL.createObjectURL(file)
     );
-    renderWorkScreen(images);
+    renderWorkScreen(loadedImages);
 }
 
 // 초기 화면 렌더링
