@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,18 +10,14 @@
     <h1>OKCR에 오신 것을 환영합니다!</h1>
     <p>OKCR은 옛한글을 포함한 한글 텍스트 인식을 위해 만들어진 OCR 프로젝트입니다.</p>
 
-    <!-- 파일 업로드 섹션 -->
-    <form id="uploadForm" method="POST" enctype="multipart/form-data">
+    <!-- 파일 업로드 및 URL 입력 섹션 -->
+    <div id="uploadSection">
         <!-- 파일 선택 -->
         <input type="file" id="fileInput" name="file" accept=".jpg, .png, .pdf">
-        <button type="button" id="uploadButton">파일 올리기</button>
-    </form>
-
-    <!-- 또는 URL 입력 섹션 -->
-    <div id="urlUploadContainer">
-        <p>또는</p>
+        <!-- URL 입력 -->
         <input type="text" id="urlInput" placeholder="이미지 URL을 입력하세요">
-        <button type="button" id="urlButton">URL로 이미지 추가</button>
+        <!-- 업로드 버튼 -->
+        <button type="button" id="uploadButton">파일 올리기</button>
     </div>
 
     <!-- 미리보기 섹션 -->
