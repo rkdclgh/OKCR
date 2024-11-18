@@ -43,9 +43,9 @@ p {
 
 /* 입력 필드 스타일 */
 #fileInput, #urlInput {
-    width: 90%;
+    width: 100%;
     max-width: 500px;
-    padding: 12px;
+    padding: 10px;
     font-family: 'Pretendard', Arial, sans-serif;
     font-size: 1rem;
     border: 1px solid #ddd; /* 테두리 설정 */
