@@ -1,42 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- 문서의 문자 인코딩을 UTF-8로 설정 (한글 등 다양한 문자를 지원) -->
     <meta charset="UTF-8">
-    <!-- 뷰포트 설정: 반응형 웹사이트를 지원하며 모든 장치에서 적절히 표시 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 문서 제목: 브라우저 탭 및 검색엔진에 표시될 이름 -->
     <title>OKCR - OCR Project</title>
-    <!-- CSS 파일 연결: style.css를 로드하여 스타일 적용 -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- 페이지 메인 제목 -->
     <h1>OKCR에 오신 것을 환영합니다!</h1>
-    <!-- 프로젝트 설명 -->
     <p>OKCR은 옛한글을 포함한 한글 텍스트 인식을 위해 만들어진 OCR 프로젝트입니다.</p>
 
     <!-- 파일 업로드 섹션 -->
     <form id="uploadForm" method="POST" enctype="multipart/form-data">
-        <!-- 파일 선택 입력 필드 -->
+        <!-- 파일 선택 -->
         <input type="file" id="fileInput" name="file" accept=".jpg, .png, .pdf">
-        <!-- 파일 업로드 버튼 -->
         <button type="button" id="uploadButton">파일 올리기</button>
     </form>
+
+    <!-- 또는 URL 입력 섹션 -->
+    <div id="urlUploadContainer">
+        <p>또는</p>
+        <input type="text" id="urlInput" placeholder="이미지 URL을 입력하세요">
+        <button type="button" id="urlButton">URL로 이미지 추가</button>
+    </div>
 
     <!-- 미리보기 섹션 -->
     <div id="previewContainer">
         <h2>미리보기</h2>
-        <!-- 사용자가 선택한 이미지가 표시될 영역 -->
         <img id="imagePreview" src="" alt="선택한 이미지가 여기에 표시됩니다." style="display: none;">
     </div>
 
-    <!-- GitHub 저장소 링크 -->
-    <a href="https://github.com/rkdclgh/OKCR" target="_blank">
-        Github에서 프로젝트 보기
-    </a>
-
-    <!-- 외부 JavaScript 파일 연결 -->
+    <a href="https://github.com/rkdclgh/OKCR" target="_blank">Github에서 프로젝트 보기</a>
     <script src="script.js"></script>
 </body>
 </html>
