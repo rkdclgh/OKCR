@@ -144,18 +144,14 @@ footer a:hover {
 }
 
 .image-preview img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    transform: translate(0, 0) scale(1);
-    transition: transform 0.1s ease;
-    cursor: default;
+    max-width: none; /* 부모 크기에 맞추지 않음 */
+    max-height: none; /* 부모 크기에 맞추지 않음 */
+    object-fit: none; /* 이미지 왜곡 방지 */
+    transform-origin: center; /* 확대/축소 기준점 설정 */
 }
 
 /* 툴박스 - 이미지 상단 */
 .toolbox {
-    display: flex;
-    gap: 10px;
     position: absolute;
     top: 10px;
     left: 50%;
