@@ -144,9 +144,9 @@ footer a:hover {
 }
 
 .image-preview img {
-    max-width: none; /* 부모 크기에 맞추지 않음 */
-    max-height: none; /* 부모 크기에 맞추지 않음 */
-    object-fit: none; /* 이미지 왜곡 방지 */
+    max-width: 100%; /* 부모 크기에 맞추기 */
+    max-height: 100%; /* 부모 크기에 맞추기 */
+    object-fit: contain; /* 이미지 비율 유지 */
     transform-origin: center; /* 확대/축소 기준점 설정 */
 }
 
