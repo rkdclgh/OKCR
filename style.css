@@ -170,39 +170,29 @@ footer a:hover {
     border-color: #0056b3;
 }
 
-.tool-icon img {
-    width: 24px;
-    height: 24px;
+.tool-icon span {
+    font-size: 24px;
+    color: #555;
 }
 
-.tool:hover .tool-menu {
+.tool-icon:hover span {
+    color: white;
+}
+
+/* OCR 작업 창 */
+.ocr-interface {
+    flex: 1;
     display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.tool-menu {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    background-color: #fff;
+textarea {
+    width: 100%;
+    height: 150px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    padding: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.tool-menu button {
-    background-color: transparent;
-    border: none;
-    font-size: 0.9rem;
-    padding: 5px;
-    cursor: pointer;
-    text-align: left;
-}
-
-.tool-menu button:hover {
-    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 1rem;
+    resize: none;
 }
