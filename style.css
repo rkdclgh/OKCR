@@ -60,6 +60,7 @@ input[type="file"] {
     border-radius: 5px; /* 모서리를 둥글게 설정 */
     background-color: #f4f4f4; /* 버튼 배경색 설정 */
     cursor: pointer; /* 마우스 포인터를 클릭 가능한 손 모양으로 변경 */
+    margin-bottom: 5px; /* 아래쪽 여백 추가: 20px */
     transition: background-color 0.3s ease; /* 호버 시 배경색 전환 효과 */
 }
 
