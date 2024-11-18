@@ -45,6 +45,7 @@ function renderWorkScreen(loadedImages = []) {
     images = loadedImages;
     app.innerHTML = `
         <div class="work-area">
+            <!-- 썸네일 미리보기 -->
             <div class="thumbnail-grid">
                 ${images
                     .map(
@@ -55,7 +56,9 @@ function renderWorkScreen(loadedImages = []) {
                     .join('')}
             </div>
 
+            <!-- 중앙 작업 화면 -->
             <div class="main-work-area">
+                <!-- 이미지 큰 화면 -->
                 <div class="image-preview">
                     <div class="toolbox">
                         <div class="tool">
@@ -77,6 +80,7 @@ function renderWorkScreen(loadedImages = []) {
                     <img src="${images[currentImageIndex]}" alt="이미지 미리보기">
                 </div>
 
+                <!-- OCR 작업 창 -->
                 <div class="ocr-interface">
                     <p>OCR 결과 텍스트</p>
                     <textarea id="ocrResult" placeholder="OCR 결과가 여기에 표시됩니다."></textarea>
