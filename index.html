@@ -11,20 +11,32 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- 주요 제목 영역 -->
+    <!-- 페이지 메인 제목 -->
     <h1>OKCR에 오신 것을 환영합니다!</h1>
-    <!-- 본문 텍스트: 프로젝트 설명 -->
-    <p>
-        OKCR은 옛한글을 포함한 한글 텍스트 인식을 위해 만들어진 OCR 프로젝트입니다.
-    </p>
-    <!-- 파일 업로드 입력 필드 -->
-    <form action="#" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".jpg, .png, .pdf">
-        <button type="submit">파일 올리기</button>
+    <!-- 프로젝트 설명 -->
+    <p>OKCR은 옛한글을 포함한 한글 텍스트 인식을 위해 만들어진 OCR 프로젝트입니다.</p>
+
+    <!-- 파일 업로드 섹션 -->
+    <form id="uploadForm" method="POST" enctype="multipart/form-data">
+        <!-- 파일 선택 입력 필드 -->
+        <input type="file" id="fileInput" name="file" accept=".jpg, .png, .pdf">
+        <!-- 파일 업로드 버튼 -->
+        <button type="button" id="uploadButton">파일 올리기</button>
     </form>
-    <!-- 하단 링크: GitHub 저장소로 연결 -->
+
+    <!-- 미리보기 섹션 -->
+    <div id="previewContainer">
+        <h2>미리보기</h2>
+        <!-- 사용자가 선택한 이미지가 표시될 영역 -->
+        <img id="imagePreview" src="" alt="선택한 이미지가 여기에 표시됩니다." style="display: none;">
+    </div>
+
+    <!-- GitHub 저장소 링크 -->
     <a href="https://github.com/rkdclgh/OKCR" target="_blank">
         Github에서 프로젝트 보기
     </a>
+
+    <!-- 외부 JavaScript 파일 연결 -->
+    <script src="script.js"></script>
 </body>
 </html>
