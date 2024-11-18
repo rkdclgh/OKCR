@@ -85,7 +85,7 @@ footer a:hover {
     text-decoration: underline;
 }
 
-/* 작업 화면 */
+/* 작업 화면 레이아웃 */
 .work-area {
     display: flex;
     flex-direction: column;
@@ -95,16 +95,18 @@ footer a:hover {
     margin: 0 auto;
 }
 
+/* 썸네일 미리보기 */
 .thumbnail-grid {
     display: flex;
     gap: 10px;
     overflow-x: auto;
-    justify-content: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
 .thumbnail {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
     border: 2px solid transparent;
     cursor: pointer;
@@ -115,15 +117,24 @@ footer a:hover {
     border-color: #007BFF;
 }
 
+/* 작업 화면 본체 */
+.main-work-area {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
+}
+
+/* 이미지 큰 화면 */
 .image-preview {
+    flex: 2;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1px solid #ddd;
     border-radius: 5px;
-    padding: 10px;
-    background-color: #fff;
     height: 400px;
+    background-color: #fff;
 }
 
 .image-preview img {
@@ -131,14 +142,54 @@ footer a:hover {
     max-height: 100%;
 }
 
+/* OCR 작업 창 */
 .ocr-interface {
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    align-items: center;
 }
 
-.ocr-interface button {
+.ocr-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.ocr-box p {
+    margin: 0;
+    font-size: 0.9rem;
+    flex: 1;
+}
+
+.ocr-box button {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.ocr-box button:hover {
+    background-color: #0056b3;
+}
+
+/* 하단 도구 */
+.toolbar {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.toolbar button {
     padding: 10px 20px;
     font-size: 1rem;
     background-color: #007BFF;
@@ -148,18 +199,7 @@ footer a:hover {
     cursor: pointer;
 }
 
-.ocr-interface button:hover {
+.toolbar button:hover {
     background-color: #0056b3;
 }
 
-.ocr-interface textarea {
-    width: 80%;
-    max-width: 600px;
-    height: 150px;
-    font-size: 1rem;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box;
-    resize: none;
-}
