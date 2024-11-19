@@ -12,20 +12,26 @@ export function setupZoomAndPan() {
         return;
     }
 
-    // Zoom 기능 (휠 이벤트)
-    previewContainer.addEventListener('wheel', (event) => {
+    // 이미지 기본 드래그 방지
+    image.addEventListener('dragstart', (event) => {
         event.preventDefault();
+    });
+
+    // 휠 이벤트: 확대/축소
+    previewContainer.addEventListener('wheel', (event) => {
+        event.preventDefault(); // 기본 스크롤 방지
 
         // 확대/축소 비율 변경
         scale += event.deltaY < 0 ? 0.1 : -0.1;
-        scale = Math.min(Math.max(0.5, scale), 3);
+        scale = Math.min(Math.max(0.5, scale), 3); // 비율 제한
 
-        // 이미지 변환 적용
         updateImageTransform(image);
     });
 
-    // Pan 기능 (마우스 드래그)
+    // Pan 기능: 마우스 드래그
     previewContainer.addEventListener('mousedown', (event) => {
+        event.preventDefault(); // 기본 동작 방지
+
         isPanning = true;
         previewContainer.style.cursor = 'grabbing'; // Pan 시작 시 커서 변경
 
