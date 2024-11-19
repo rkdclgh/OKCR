@@ -6,7 +6,7 @@ let isPanning = false;
 export function setupZoomAndPan() {
     const image = document.getElementById('previewImage');
     const previewContainer = document.querySelector('.image-preview');
-    const scaleBar = document.getElementById('scaleBar'); // 스케일 바 요소
+    const scaleBar = document.getElementById('scaleBar');
 
     if (!image || !previewContainer || !scaleBar) {
         console.error('이미지 또는 컨테이너, 스케일 바를 찾을 수 없습니다.');
@@ -19,10 +19,15 @@ export function setupZoomAndPan() {
 
     previewContainer.addEventListener('wheel', (event) => {
         event.preventDefault();
-        scale += event.deltaY < 0 ? 0.05 : -0.05; // 더 미세한 확대/축소
-        scale = Math.min(Math.max(0.1, scale), 5); // 0.1~5 사이로 제한
+        scale += event.deltaY < 0 ? 0.05 : -0.05;
+        scale = Math.min(Math.max(0.1, scale), 5);
         updateImageTransform(image);
-        updateScaleBar(scale); // 스케일 바 업데이트
+        updateScaleBar(scale);
+    });
+
+    scaleBar.addEventListener('input', (event) => {
+        scale = parseFloat(event.target.value);
+        updateImageTransform(image);
     });
 
     previewContainer.addEventListener('mousedown', (event) => {
@@ -58,5 +63,5 @@ function updateImageTransform(image) {
 
 function updateScaleBar(scale) {
     const scaleBar = document.getElementById('scaleBar');
-    scaleBar.value = scale; // 스케일 바 값 동기화
+    scaleBar.value = scale;
 }
