@@ -88,20 +88,18 @@ function renderWorkScreen(loadedImages = []) {
         <div class="work-area">
             <!-- 썸네일 미리보기 -->
             <div class="thumbnail-grid">
-                ${images
-                    .map(
-                        (image, index) => `
-                        <div class="thumbnail-container" data-index="${index}">
-                            <img class="thumbnail ${
-                                index === currentImageIndex ? 'selected' : ''
-                            }" 
-                                src="${image}" alt="썸네일 ${index + 1}">
-                            <span class="thumbnail-number ${
-                                index === currentImageIndex ? 'selected' : ''
-                            }">${index + 1}</span>
-                        </div>`
-                    )
-                    .join('')}
+                ${images.map(
+                    (image, index) => `
+                    <div class="thumbnail-container" data-index="${index}">
+                        <img class="thumbnail ${
+                            index === currentImageIndex ? 'selected' : ''
+                        }" 
+                            src="${image}" alt="썸네일 ${index + 1}">
+                        <span class="thumbnail-number ${
+                            index === currentImageIndex ? 'selected' : ''
+                        }">${index + 1}</span>
+                    </div>`
+                ).join('')}
             </div>
 
             <!-- 중앙 작업 화면 -->
