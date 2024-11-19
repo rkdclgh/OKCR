@@ -48,36 +48,48 @@ function renderMainScreen() {
 // PDF 처리 함수
 async function handlePDF(file) {
     const pdf = await pdfjsLib.getDocument(URL.createObjectURL(file)).promise;
-    const pdfPages = [];
+    const numPages = pdf.numPages;
+    const imagePromises = [];
 
-    for (let i = 1; i <= pdf.numPages; i++) {
-        const page = await pdf.getPage(i);
-        const viewport = page.getViewport({ scale: 1.5 }); // PDF 페이지 스케일 조정
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
+    for (let i = 1; i <= numPages; i++) {
+        imagePromises.push(
+            pdf.getPage(i).then(async (page) => {
+                const viewport = page.getViewport({ scale: 1.5 });
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
 
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-        await page.render({ canvasContext: context, viewport: viewport }).promise;
-
-        pdfPages.push(canvas.toDataURL()); // 각 페이지를 이미지 데이터로 변환
+                await page.render({ canvasContext: context, viewport }).promise;
+                return canvas.toDataURL();
+            })
+        );
     }
 
-    renderWorkScreen(pdfPages); // PDF 페이지 이미지를 작업 화면으로 렌더링
+    return Promise.all(imagePromises);
 }
 
 // 파일 처리 함수
-function handleFiles(files) {
-    files.forEach((file) => {
-        if (file.type === 'application/pdf') {
-            handlePDF(file); // PDF 파일 처리
-        } else if (typeof file === 'string' || file.type.startsWith('image/')) {
-            const imageURL = typeof file === 'string' ? file : URL.createObjectURL(file);
-            renderWorkScreen([imageURL]); // 이미지 파일 처리
+async function handleFiles(files) {
+    const loadedImages = [];
+    for (const file of files) {
+        if (typeof file === 'string') {
+            loadedImages.push(file); // URL 처리
+        } else if (file.type === 'application/pdf') {
+            const pdfImages = await handlePDF(file); // PDF 처리
+            loadedImages.push(...pdfImages);
+        } else if (file.type.startsWith('image/')) {
+            loadedImages.push(URL.createObjectURL(file)); // 이미지 파일 처리
         } else {
-            alert('지원하지 않는 파일 형식입니다.');
+            alert(`${file.name}은(는) 지원하지 않는 형식입니다.`);
         }
-    });
+    }
+
+    if (loadedImages.length > 0) {
+        renderWorkScreen(loadedImages);
+    } else {
+        alert('유효한 파일이나 URL을 입력하세요.');
+    }
 }
 
 // 작업 화면 렌더링
@@ -129,7 +141,7 @@ function renderWorkScreen(loadedImages = []) {
     setupToolboxEvents();
 }
 
-// 썸네일 이벤트
+// 썸네일 클릭 이벤트
 function setupThumbnailEvents() {
     const thumbnails = document.querySelectorAll('.thumbnail-container');
 
@@ -154,5 +166,5 @@ function setupThumbnailEvents() {
     });
 }
 
-// 초기 화면 렌더링
+// 초기 화면 렌더링 호출
 renderMainScreen();
