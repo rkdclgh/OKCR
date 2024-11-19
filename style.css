@@ -68,6 +68,21 @@ header p {
     background-color: #0056b3;
 }
 
+footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+footer a {
+    color: #007BFF;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
 /* 작업 화면 레이아웃 */
 .work-area {
     display: flex;
@@ -81,12 +96,12 @@ header p {
 /* 썸네일 미리보기 */
 .thumbnail-grid {
     display: flex;
-    gap: 10px; /* 썸네일 간 간격 조정 */
+    gap: 10px;
     overflow-x: auto;
     padding: 10px;
     border-bottom: 1px solid #ddd;
-    align-items: center; /* 썸네일과 텍스트 수직 중앙 정렬 */
-    height: 140px; /* 썸네일 틀 높이 */
+    align-items: center;
+    height: 140px; /* 썸네일 높이 */
 }
 
 .thumbnail-container {
@@ -97,9 +112,11 @@ header p {
     justify-content: center;
     align-items: center;
     position: relative;
-    border: 2px solid transparent; /* 선택되지 않은 썸네일 */
+    border: 2px solid transparent;
+    overflow: hidden; /* 썸네일 틀을 벗어나지 않도록 */
     cursor: pointer;
     transition: border-color 0.3s ease;
+    box-sizing: border-box;
 }
 
 .thumbnail-container.selected {
@@ -109,7 +126,7 @@ header p {
 .thumbnail img {
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain; /* 이미지가 틀 안에 비율 유지 */
+    object-fit: contain; /* 썸네일 안에서 이미지 비율 유지 */
 }
 
 .thumbnail-number {
@@ -129,7 +146,7 @@ header p {
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 80vh; /* 화면 높이의 80% 사용 */
+    height: 80vh; /* 부모 컨테이너 높이 */
     gap: 10px; /* 좌우 창 간 간격 */
 }
 
@@ -142,15 +159,16 @@ header p {
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #fff;
-    height: 100%; /* OCR 결과 박스와 높이 동일 */
+    height: 100%; /* OCR 결과 박스와 동일 높이 */
     position: relative;
     overflow: hidden;
     cursor: grab;
 }
+
 .image-preview img {
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain; /* 이미지 비율 유지 */
+    object-fit: contain;
     transform-origin: center;
     transition: transform 0.1s ease;
 }
@@ -166,32 +184,7 @@ header p {
     overflow-y: auto;
 }
 
-/* 스케일 바 스타일 */
-#scaleBar {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 300px;
-    height: 5px;
-    -webkit-appearance: none;
-    background: #ddd;
-    outline: none;
-    border-radius: 5px;
-    z-index: 10;
-}
-
-#scaleBar::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background: #007BFF;
-    cursor: pointer;
-}
-
-/* 툴박스 */
+/* 툴박스 - 이미지 상단 */
 .toolbox {
     position: absolute;
     top: 10px;
@@ -202,6 +195,8 @@ header p {
     padding: 5px 10px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 10px;
 }
 
 .tool-icon {
@@ -231,19 +226,27 @@ header p {
     color: white;
 }
 
-
-/* Github 보기 링크 */
-footer {
-    text-align: center;
-    margin-top: 20px;
+/* 스케일 바 */
+#scaleBar {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 5px;
+    -webkit-appearance: none;
+    background: #ddd;
+    outline: none;
+    border-radius: 5px;
+    z-index: 10;
 }
 
-footer a {
-    color: #007BFF;
-    text-decoration: none;
-    font-size: 1rem;
-}
-
-footer a:hover {
-    text-decoration: underline;
+#scaleBar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #007BFF;
+    cursor: pointer;
 }
