@@ -96,12 +96,12 @@ footer a:hover {
 /* 썸네일 미리보기 */
 .thumbnail-grid {
     display: flex;
-    gap: 10px;
+    gap: 10px; /* 썸네일 간 간격 */
     overflow-x: auto;
     padding: 10px;
     border-bottom: 1px solid #ddd;
     align-items: center;
-    height: 140px; /* 썸네일 높이 */
+    height: 140px; /* 썸네일 틀 높이 */
 }
 
 .thumbnail-container {
@@ -124,9 +124,9 @@ footer a:hover {
 }
 
 .thumbnail img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; /* 썸네일 안에서 이미지 비율 유지 */
+    width: 100%; /* 썸네일 크기에 맞게 조정 */
+    height: 100%;
+    object-fit: contain; /* 이미지 비율 유지 */
 }
 
 .thumbnail-number {
