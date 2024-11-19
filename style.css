@@ -94,7 +94,7 @@ header p {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    width: 100px;
+    width: 100px; /* 썸네일 박스 크기 */
     height: 120px; /* 이미지와 번호를 포함한 높이 */
     position: relative;
     border: 2px solid transparent;
@@ -107,9 +107,11 @@ header p {
 }
 
 .thumbnail img {
-    width: 100%;
-    height: 100px; /* 정사각형 내부에서 이미지 비율 유지 */
-    object-fit: contain;
+    width: 90%;
+    height: 90%;
+    object-fit: contain; /* 박스 내부에서 이미지 축소 */
+    margin: auto; /* 썸네일 내부에서 중앙 정렬 */
+    border-radius: 3px; /* 썸네일 이미지 약간의 둥근 모서리 */
 }
 
 .thumbnail-number {
@@ -227,4 +229,21 @@ header p {
 
 .tool-icon:hover span {
     color: white;
+}
+
+
+/* Github 보기 링크 */
+footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+footer a {
+    color: #007BFF;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
