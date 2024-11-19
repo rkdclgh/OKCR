@@ -32,11 +32,11 @@ function renderMainScreen() {
     const uploadButton = document.getElementById('uploadButton');
 
     uploadButton.addEventListener('click', () => {
-        const files = fileInput.files;
+        const files = Array.from(fileInput.files);
         const url = urlInput.value.trim();
 
         if (files.length > 0) {
-            handleFiles(Array.from(files));
+            handleFiles(files);
         } else if (url) {
             handleFiles([url]);
         } else {
@@ -45,12 +45,39 @@ function renderMainScreen() {
     });
 }
 
+// PDF 처리 함수
+async function handlePDF(file) {
+    const pdf = await pdfjsLib.getDocument(URL.createObjectURL(file)).promise;
+    const pdfPages = [];
+
+    for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const viewport = page.getViewport({ scale: 1.5 }); // PDF 페이지 스케일 조정
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        await page.render({ canvasContext: context, viewport: viewport }).promise;
+
+        pdfPages.push(canvas.toDataURL()); // 각 페이지를 이미지 데이터로 변환
+    }
+
+    renderWorkScreen(pdfPages); // PDF 페이지 이미지를 작업 화면으로 렌더링
+}
+
 // 파일 처리 함수
 function handleFiles(files) {
-    const loadedImages = files.map((file) =>
-        typeof file === 'string' ? file : URL.createObjectURL(file)
-    );
-    renderWorkScreen(loadedImages);
+    files.forEach((file) => {
+        if (file.type === 'application/pdf') {
+            handlePDF(file); // PDF 파일 처리
+        } else if (typeof file === 'string' || file.type.startsWith('image/')) {
+            const imageURL = typeof file === 'string' ? file : URL.createObjectURL(file);
+            renderWorkScreen([imageURL]); // 이미지 파일 처리
+        } else {
+            alert('지원하지 않는 파일 형식입니다.');
+        }
+    });
 }
 
 // 작업 화면 렌더링
@@ -58,14 +85,20 @@ function renderWorkScreen(loadedImages = []) {
     images = loadedImages;
     app.innerHTML = `
         <div class="work-area">
+            <!-- 썸네일 미리보기 -->
             <div class="thumbnail-grid">
                 ${images.map((image, index) =>
                     `<img class="thumbnail ${index === currentImageIndex ? 'selected' : ''}" 
                           src="${image}" alt="썸네일 ${index + 1}" data-index="${index}">`).join('')}
             </div>
+
+            <!-- 중앙 작업 화면 -->
             <div class="main-work-area">
                 <div class="image-preview">
                     <div class="toolbox">
+                        <button class="tool-icon" id="panButton">
+                            <span class="material-icons">pan_tool</span>
+                        </button>
                         <button class="tool-icon" id="resetButton">
                             <span class="material-icons">restart_alt</span>
                         </button>
