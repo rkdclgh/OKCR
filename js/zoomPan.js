@@ -1,7 +1,7 @@
 let scale = 1;
 let translateX = 0;
 let translateY = 0;
-let isPanning = false; // Pan 상태 추가
+let isPanning = false;
 
 export function setupZoomAndPan() {
     const image = document.getElementById('previewImage');
@@ -12,35 +12,25 @@ export function setupZoomAndPan() {
         return;
     }
 
-    // 이미지 기본 드래그 방지
     image.addEventListener('dragstart', (event) => {
         event.preventDefault();
     });
 
-    // 휠 이벤트: 확대/축소
     previewContainer.addEventListener('wheel', (event) => {
-        event.preventDefault(); // 기본 스크롤 방지
-
-        // 확대/축소 비율 변경
+        event.preventDefault();
         scale += event.deltaY < 0 ? 0.1 : -0.1;
-        scale = Math.min(Math.max(0.5, scale), 3); // 비율 제한
-
+        scale = Math.min(Math.max(0.5, scale), 3);
         updateImageTransform(image);
     });
 
-    // Pan 기능: 마우스 드래그
     previewContainer.addEventListener('mousedown', (event) => {
-        event.preventDefault(); // 기본 동작 방지
-
+        event.preventDefault();
         isPanning = true;
-        previewContainer.style.cursor = 'grabbing'; // Pan 시작 시 커서 변경
-
         const startX = event.clientX - translateX;
         const startY = event.clientY - translateY;
 
         const onMouseMove = (e) => {
             if (!isPanning) return;
-
             translateX = e.clientX - startX;
             translateY = e.clientY - startY;
             updateImageTransform(image);
@@ -48,17 +38,17 @@ export function setupZoomAndPan() {
 
         const onMouseUp = () => {
             isPanning = false;
-            previewContainer.style.cursor = 'grab'; // Pan 종료 시 커서 복구
+            previewContainer.style.cursor = 'grab';
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
         };
 
+        previewContainer.style.cursor = 'grabbing';
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
     });
 }
 
-// 이미지 변환 상태 업데이트
 function updateImageTransform(image) {
     image.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
 }
