@@ -83,13 +83,25 @@ function handleFiles(files) {
 // 작업 화면 렌더링
 function renderWorkScreen(loadedImages = []) {
     images = loadedImages;
+
     app.innerHTML = `
         <div class="work-area">
             <!-- 썸네일 미리보기 -->
             <div class="thumbnail-grid">
-                ${images.map((image, index) =>
-                    `<img class="thumbnail ${index === currentImageIndex ? 'selected' : ''}" 
-                          src="${image}" alt="썸네일 ${index + 1}" data-index="${index}">`).join('')}
+                ${images
+                    .map(
+                        (image, index) => `
+                        <div class="thumbnail-container" data-index="${index}">
+                            <img class="thumbnail ${
+                                index === currentImageIndex ? 'selected' : ''
+                            }" 
+                                src="${image}" alt="썸네일 ${index + 1}">
+                            <span class="thumbnail-number ${
+                                index === currentImageIndex ? 'selected' : ''
+                            }">${index + 1}</span>
+                        </div>`
+                    )
+                    .join('')}
             </div>
 
             <!-- 중앙 작업 화면 -->
@@ -113,8 +125,34 @@ function renderWorkScreen(loadedImages = []) {
         </div>
     `;
 
+    setupThumbnailEvents();
     setupZoomAndPan();
     setupToolboxEvents();
+}
+
+// 썸네일 클릭 이벤트 추가
+function setupThumbnailEvents() {
+    const thumbnails = document.querySelectorAll('.thumbnail-container');
+
+    thumbnails.forEach((thumbnail) => {
+        thumbnail.addEventListener('click', () => {
+            const index = Number(thumbnail.getAttribute('data-index'));
+            currentImageIndex = index;
+
+            // 선택된 썸네일 및 번호 강조
+            document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
+                thumb.classList.toggle('selected', i === index);
+            });
+
+            document.querySelectorAll('.thumbnail-number').forEach((num, i) => {
+                num.classList.toggle('selected', i === index);
+            });
+
+            // 중앙 이미지 변경
+            const previewImage = document.getElementById('previewImage');
+            previewImage.src = images[currentImageIndex];
+        });
+    });
 }
 
 // 초기 화면 렌더링
