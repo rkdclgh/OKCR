@@ -90,10 +90,10 @@ function renderWorkScreen(loadedImages = []) {
             <div class="thumbnail-grid">
                 ${images.map(
                     (image, index) => `
-                    <div class="thumbnail-container" data-index="${index}">
-                        <img class="thumbnail ${
-                            index === currentImageIndex ? 'selected' : ''
-                        }" 
+                    <div class="thumbnail-container ${
+                        index === currentImageIndex ? 'selected' : ''
+                    }" data-index="${index}">
+                        <img class="thumbnail" 
                             src="${image}" alt="썸네일 ${index + 1}">
                         <span class="thumbnail-number ${
                             index === currentImageIndex ? 'selected' : ''
@@ -129,7 +129,7 @@ function renderWorkScreen(loadedImages = []) {
     setupToolboxEvents();
 }
 
-// 썸네일 클릭 이벤트 추가
+// 썸네일 클릭 이벤트
 function setupThumbnailEvents() {
     const thumbnails = document.querySelectorAll('.thumbnail-container');
 
@@ -138,9 +138,9 @@ function setupThumbnailEvents() {
             const index = Number(thumbnail.getAttribute('data-index'));
             currentImageIndex = index;
 
-            // 선택된 썸네일 및 번호 강조
-            document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
-                thumb.classList.toggle('selected', i === index);
+            // 모든 썸네일 상태 초기화
+            document.querySelectorAll('.thumbnail-container').forEach((container, i) => {
+                container.classList.toggle('selected', i === index);
             });
 
             document.querySelectorAll('.thumbnail-number').forEach((num, i) => {
