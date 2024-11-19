@@ -68,21 +68,6 @@ header p {
     background-color: #0056b3;
 }
 
-footer {
-    text-align: center;
-    margin-top: 20px;
-}
-
-footer a {
-    color: #007BFF;
-    text-decoration: none;
-    font-size: 1rem;
-}
-
-footer a:hover {
-    text-decoration: underline;
-}
-
 /* 작업 화면 레이아웃 */
 .work-area {
     display: flex;
@@ -91,6 +76,92 @@ footer a:hover {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+}
+
+/* 썸네일 미리보기 */
+.thumbnail-grid {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    align-items: flex-start;
+    height: 140px; /* 썸네일 높이 + 번호 */
+}
+
+.thumbnail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100px;
+    height: 120px; /* 이미지와 번호를 포함한 높이 */
+    position: relative;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.thumbnail-container.selected {
+    border-color: #007BFF; /* 선택된 썸네일 강조 */
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100px; /* 정사각형 내부에서 이미지 비율 유지 */
+    object-fit: contain;
+}
+
+.thumbnail-number {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #555;
+    text-align: center;
+}
+
+.thumbnail-number.selected {
+    font-weight: bold;
+    color: #007BFF;
+}
+
+/* 중앙 작업 화면 */
+.main-work-area {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 80vh; /* 두 박스 높이 동일화 */
+    gap: 10px; /* 박스 간 간격 */
+}
+
+.image-preview,
+.ocr-interface {
+    flex: 1; /* 폭 비율 동일화 */
+    height: 100%; /* 높이 비율 동일화 */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* 이미지 큰 화면 - 좌측 */
+.image-preview {
+    position: relative;
+    cursor: grab;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* 이미지 비율 유지 */
+    transform-origin: center;
+    transition: transform 0.1s ease;
+}
+
+/* OCR 작업 창 - 우측 */
+.ocr-interface {
+    padding: 20px;
+    background-color: #f9f9f9;
+    overflow-y: auto;
 }
 
 /* 스케일 바 스타일 */
@@ -118,116 +189,42 @@ footer a:hover {
     cursor: pointer;
 }
 
-/* 썸네일 미리보기 */
-.thumbnail-grid {
-    display: flex;
-    gap: 15px; /* 썸네일 간 간격 조정 */
-    overflow-x: auto;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    align-items: flex-start; /* 텍스트와 썸네일 상단 정렬 */
-    height: 140px; /* 썸네일 높이 + 번호 */
-}
-
-.thumbnail-container {
-    width: 100px; /* 정사각형 썸네일 */
-    height: 100px; /* 정사각형 썸네일 */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    border: 2px solid transparent; /* 선택되지 않은 썸네일 */
-    cursor: pointer;
-    transition: border-color 0.3s ease;
-}
-
-.thumbnail-container.selected {
-    border-color: #007BFF; /* 선택된 썸네일 강조 */
-}
-
-.thumbnail img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; /* 썸네일 박스 내부에서 비율 유지 */
-}
-
-.thumbnail {
-    height: 100%; /* 전체 썸네일 사이즈에 맞춤 */
-    object-fit: contain;
-    border: 2px solid transparent;
-    cursor: pointer;
-    transition: border-color 0.3s ease;
-}
-
-.thumbnail.selected img {
-    border-color: #007BFF;
-}
-
-.thumbnail-number {
-    font-size: 0.9rem;
-    margin-top: 5px;
-    color: #555;
-    text-align: center;
-}
-
-.thumbnail-number.selected {
-    font-weight: bold;
-    color: #007BFF;
-}
-
-/* 중앙 작업 화면 레이아웃 */
-.main-work-area {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 80vh; /* 화면 높이의 80% 사용 */
-    gap: 10px; /* 좌우 창 간 간격 */
-}
-
-/* 이미지 큰 화면 - 좌측 */
-.image-preview {
-    flex: 1; /* 비율 유지 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff;
-    height: 100%; /* OCR 결과 박스와 높이 동일 */
-    position: relative;
-    overflow: hidden;
-    cursor: grab;
-}
-
-.image-preview img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; /* 이미지 비율 유지 */
-    transform-origin: center;
-    transition: transform 0.1s ease;
-}
-
-/* OCR 작업 창 - 우측 */
-.ocr-interface {
-    flex: 1;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    height: 100%; /* 이미지 박스와 높이 동일 */
-    overflow-y: auto;
-}
-
 /* 툴박스 */
 .toolbox {
     position: absolute;
     top: 10px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 999;
+    z-index: 10;
     background-color: rgba(255, 255, 255, 0.9);
     padding: 5px 10px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tool-icon {
+    width: 30px;
+    height: 30px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tool-icon:hover {
+    background-color: #007BFF;
+    border-color: #0056b3;
+}
+
+.tool-icon span {
+    font-size: 18px;
+    color: #555;
+}
+
+.tool-icon:hover span {
+    color: white;
 }
