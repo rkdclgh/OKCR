@@ -136,110 +136,30 @@ footer a:hover {
     height: 100%;
     position: relative;
     overflow: hidden;
-    cursor: grab; /* 기본 상태에서 Pan을 위한 커서 */
+    cursor: grab;
 }
 
 .image-preview:active {
-    cursor: grabbing; /* 마우스 클릭 시 커서 */
+    cursor: grabbing;
 }
 
 .image-preview img {
-    max-width: 100%; /* 부모 크기에 맞추기 */
-    max-height: 100%; /* 부모 크기에 맞추기 */
-    object-fit: contain; /* 이미지 비율 유지 */
-    transform-origin: center; /* 확대/축소 기준점 설정 */
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+    transform-origin: center;
+    transition: transform 0.1s ease;
 }
 
-/* 툴박스 - 이미지 상단 */
+/* 툴박스 */
 .toolbox {
     position: absolute;
     top: 10px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 10;
+    z-index: 999;
     background-color: rgba(255, 255, 255, 0.9);
     padding: 5px 10px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.tool-icon {
-    width: 30px;
-    height: 30px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.tool-icon:hover {
-    background-color: #007BFF;
-    border-color: #0056b3;
-}
-
-.tool-icon span {
-    font-size: 18px;
-    color: #555;
-}
-
-.tool-icon:hover span {
-    color: white;
-}
-
-/* OCR 작업 창 - 우측 */
-.ocr-interface {
-    flex: 1;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    height: 100%;
-    overflow-y: auto;
-}
-
-.ocr-result-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff;
-}
-
-.ocr-result-item p {
-    margin: 0;
-    flex: 1;
-    font-size: 0.9rem;
-    color: #333;
-}
-
-.ocr-result-item button {
-    padding: 5px 10px;
-    font-size: 0.8rem;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.ocr-result-item button:hover {
-    background-color: #0056b3;
-}
-
-/* 텍스트 박스 */
-textarea {
-    width: 100%;
-    height: calc(100% - 40px);
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 1rem;
-    resize: none;
 }
