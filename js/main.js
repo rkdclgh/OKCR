@@ -93,7 +93,8 @@ function renderWorkScreen(loadedImages = []) {
                     <div class="thumbnail-container ${
                         index === currentImageIndex ? 'selected' : ''
                     }" data-index="${index}">
-                        <img class="thumbnail" src="${image}" alt="썸네일 ${index + 1}">
+                        <img class="thumbnail" 
+                            src="${image}" alt="썸네일 ${index + 1}">
                         <span class="thumbnail-number ${
                             index === currentImageIndex ? 'selected' : ''
                         }">${index + 1}</span>
@@ -103,7 +104,6 @@ function renderWorkScreen(loadedImages = []) {
 
             <!-- 중앙 작업 화면 -->
             <div class="main-work-area">
-                <!-- 이미지 큰 화면 -->
                 <div class="image-preview">
                     <div class="toolbox">
                         <button class="tool-icon" id="panButton">
@@ -116,8 +116,6 @@ function renderWorkScreen(loadedImages = []) {
                     <input type="range" id="scaleBar" min="0.1" max="5" step="0.1" value="1">
                     <img src="${images[currentImageIndex]}" alt="이미지 미리보기" id="previewImage">
                 </div>
-
-                <!-- OCR 작업 창 -->
                 <div class="ocr-interface">
                     <p>OCR 결과 텍스트</p>
                     <div id="ocrResults"></div>
@@ -131,7 +129,7 @@ function renderWorkScreen(loadedImages = []) {
     setupToolboxEvents();
 }
 
-// 썸네일 클릭 이벤트
+// 썸네일 이벤트
 function setupThumbnailEvents() {
     const thumbnails = document.querySelectorAll('.thumbnail-container');
 
