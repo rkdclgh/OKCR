@@ -115,6 +115,7 @@ function renderWorkScreen(loadedImages = []) {
                             <span class="material-icons">restart_alt</span>
                         </button>
                     </div>
+                    <input type="range" id="scaleBar" min="0.1" max="5" step="0.1" value="1">
                     <img src="${images[currentImageIndex]}" alt="이미지 미리보기" id="previewImage">
                 </div>
                 <div class="ocr-interface">
