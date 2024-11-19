@@ -81,23 +81,23 @@ header p {
 /* 썸네일 미리보기 */
 .thumbnail-grid {
     display: flex;
-    gap: 15px;
+    gap: 10px; /* 썸네일 간 간격 조정 */
     overflow-x: auto;
     padding: 10px;
     border-bottom: 1px solid #ddd;
-    align-items: flex-start;
-    height: 140px; /* 썸네일 높이 + 번호 */
+    align-items: center; /* 썸네일과 텍스트 수직 중앙 정렬 */
+    height: 140px; /* 썸네일 틀 높이 */
 }
 
 .thumbnail-container {
+    width: 100px; /* 썸네일 정사각형 틀 */
+    height: 100px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: flex-start;
-    width: 100px; /* 썸네일 박스 크기 */
-    height: 120px; /* 이미지와 번호를 포함한 높이 */
     position: relative;
-    border: 2px solid transparent;
+    border: 2px solid transparent; /* 선택되지 않은 썸네일 */
     cursor: pointer;
     transition: border-color 0.3s ease;
 }
@@ -107,16 +107,14 @@ header p {
 }
 
 .thumbnail img {
-    width: 90%;
-    height: 90%;
-    object-fit: contain; /* 박스 내부에서 이미지 축소 */
-    margin: auto; /* 썸네일 내부에서 중앙 정렬 */
-    border-radius: 3px; /* 썸네일 이미지 약간의 둥근 모서리 */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* 이미지가 틀 안에 비율 유지 */
 }
 
 .thumbnail-number {
-    margin-top: 5px;
     font-size: 0.9rem;
+    margin-top: 5px;
     color: #555;
     text-align: center;
 }
@@ -126,31 +124,29 @@ header p {
     color: #007BFF;
 }
 
-/* 중앙 작업 화면 */
+/* 중앙 작업 화면 레이아웃 */
 .main-work-area {
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 80vh; /* 두 박스 높이 동일화 */
-    gap: 10px; /* 박스 간 간격 */
-}
-
-.image-preview,
-.ocr-interface {
-    flex: 1; /* 폭 비율 동일화 */
-    height: 100%; /* 높이 비율 동일화 */
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    overflow: hidden;
+    height: 80vh; /* 화면 높이의 80% 사용 */
+    gap: 10px; /* 좌우 창 간 간격 */
 }
 
 /* 이미지 큰 화면 - 좌측 */
 .image-preview {
+    flex: 1; /* 비율 유지 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    height: 100%; /* OCR 결과 박스와 높이 동일 */
     position: relative;
+    overflow: hidden;
     cursor: grab;
 }
-
 .image-preview img {
     max-width: 100%;
     max-height: 100%;
@@ -161,8 +157,12 @@ header p {
 
 /* OCR 작업 창 - 우측 */
 .ocr-interface {
+    flex: 1;
     padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     background-color: #f9f9f9;
+    height: 100%; /* 이미지 박스와 높이 동일 */
     overflow-y: auto;
 }
 
