@@ -121,7 +121,7 @@ footer a:hover {
 /* 썸네일 미리보기 */
 .thumbnail-grid {
     display: flex;
-    gap: 10px;
+    gap: 15px; /* 썸네일 간 간격 조정 */
     overflow-x: auto;
     padding: 10px;
     border-bottom: 1px solid #ddd;
@@ -137,15 +137,19 @@ footer a:hover {
     justify-content: center;
     align-items: center;
     position: relative;
+    border: 2px solid transparent; /* 선택되지 않은 썸네일 */
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.thumbnail-container.selected {
+    border-color: #007BFF; /* 선택된 썸네일 강조 */
 }
 
 .thumbnail img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain; /* 썸네일 박스 내부에서 비율 유지 */
-    border: 2px solid transparent;
-    cursor: pointer;
-    transition: border-color 0.3s ease;
 }
 
 .thumbnail {
@@ -183,21 +187,17 @@ footer a:hover {
 
 /* 이미지 큰 화면 - 좌측 */
 .image-preview {
-    flex: 1;
+    flex: 1; /* 비율 유지 */
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #fff;
-    height: 100%;
+    height: 100%; /* OCR 결과 박스와 높이 동일 */
     position: relative;
     overflow: hidden;
     cursor: grab;
-}
-
-.image-preview:active {
-    cursor: grabbing;
 }
 
 .image-preview img {
@@ -215,7 +215,7 @@ footer a:hover {
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #f9f9f9;
-    height: 100%;
+    height: 100%; /* 이미지 박스와 높이 동일 */
     overflow-y: auto;
 }
 
