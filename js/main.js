@@ -5,6 +5,9 @@ const app = document.getElementById('app');
 let currentImageIndex = 0;
 let images = [];
 
+// PDF.js 라이브러리 사용
+const pdfjsLib = window['pdfjs-dist/build/pdf'];
+
 // 메인 화면 렌더링
 function renderMainScreen() {
     app.innerHTML = `
