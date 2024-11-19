@@ -124,9 +124,9 @@ footer a:hover {
 }
 
 .thumbnail img {
-    width: 100%; /* 썸네일 크기에 맞게 조정 */
-    height: 100%;
-    object-fit: contain; /* 이미지 비율 유지 */
+    max-width: 100%; /* 틀 내부에서 비율 유지 */
+    max-height: 100%; /* 틀 내부에서 비율 유지 */
+    object-fit: contain; /* 비율 유지하며 조정 */
 }
 
 .thumbnail-number {
