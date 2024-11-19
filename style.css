@@ -125,25 +125,27 @@ footer a:hover {
     overflow-x: auto;
     padding: 10px;
     border-bottom: 1px solid #ddd;
-    align-items: center;
-    height: 120px; /* 고정된 썸네일 높이 */
+    align-items: flex-start; /* 텍스트와 썸네일 상단 정렬 */
+    height: 140px; /* 썸네일 높이 + 번호 */
 }
 
 .thumbnail-container {
-    width: 100px; /* 고정된 썸네일 너비 */
-    height: 100px; /* 고정된 썸네일 높이 */
+    width: 100px; /* 정사각형 썸네일 */
+    height: 100px; /* 정사각형 썸네일 */
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 2px solid transparent;
-    cursor: pointer;
-    transition: border-color 0.3s ease;
+    position: relative;
 }
 
 .thumbnail img {
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain; /* 썸네일 안에서 이미지 전체 표시 */
+    object-fit: contain; /* 썸네일 박스 내부에서 비율 유지 */
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
 }
 
 .thumbnail {
@@ -154,7 +156,7 @@ footer a:hover {
     transition: border-color 0.3s ease;
 }
 
-.thumbnail.selected {
+.thumbnail.selected img {
     border-color: #007BFF;
 }
 
@@ -162,6 +164,7 @@ footer a:hover {
     font-size: 0.9rem;
     margin-top: 5px;
     color: #555;
+    text-align: center;
 }
 
 .thumbnail-number.selected {
@@ -180,7 +183,7 @@ footer a:hover {
 
 /* 이미지 큰 화면 - 좌측 */
 .image-preview {
-    flex: 1; /* 비율 유지 */
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -198,16 +201,16 @@ footer a:hover {
 }
 
 .image-preview img {
-    max-width: none;
-    max-height: none;
-    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* 이미지 비율 유지 */
     transform-origin: center;
     transition: transform 0.1s ease;
 }
 
 /* OCR 작업 창 - 우측 */
 .ocr-interface {
-    flex: 1; /* 비율 1:1 설정 */
+    flex: 1;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
