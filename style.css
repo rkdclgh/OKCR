@@ -89,56 +89,161 @@ footer a:hover {
     flex-direction: column;
     gap: 20px;
     width: 100%;
-    max-width: 1200px;
+    max-width: 90%;
     margin: 0 auto;
 }
 
 /* 썸네일 미리보기 */
 .thumbnail-grid {
+    position: relative;
     display: flex;
     gap: 10px; /* 썸네일 간 간격 */
     overflow-x: auto;
+    overflow-y: hidden; /* 세로 스크롤 방지 */
     padding: 10px;
     border-bottom: 1px solid #ddd;
-    align-items: center;
     height: 140px; /* 썸네일 틀 높이 */
+    scroll-behavior: smooth;
 }
 
+/* 스크롤바 디자인 */
+.thumbnail-grid::-webkit-scrollbar {
+    height: 8px; /* 스크롤바 높이 */
+}
+
+.thumbnail-grid::-webkit-scrollbar-thumb {
+    background-color: #007BFF; /* 스크롤바 색상 */
+    border-radius: 4px; /* 스크롤바 둥글게 */
+}
+
+.thumbnail-grid::-webkit-scrollbar-thumb:hover {
+    background-color: #0056b3; /* 마우스 오버 시 색상 */
+}
+
+.thumbnail-grid::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* 스크롤바 배경 */
+}
+
+
+
 .thumbnail-container {
-    width: 100px; /* 썸네일 정사각형 틀 */
-    height: 120px; /* 썸네일 이미지 + 번호 포함 높이 */
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* 세로 정렬 */
+    width: 140px; /* 썸네일 정사각형 틀 */
+    height: 140px; /* 이미지 + 번호 포함 높이 */
     position: relative;
     border: 2px solid transparent;
     overflow: hidden; /* 썸네일 틀을 벗어나지 않도록 */
     cursor: pointer;
     transition: border-color 0.3s ease;
     box-sizing: border-box;
+    flex-shrink: 0;
 }
 
+/* 선택된 썸네일 컨테이너 */
 .thumbnail-container.selected {
-    border-color: #007BFF; /* 선택된 썸네일 강조 */
+    border-color: #007BFF; /* 파란색 테두리 강조 */
+    background-color: #f0f8ff; /* 연한 파란색 배경 */
 }
 
 .thumbnail img {
-    max-width: 100%; /* 틀 내부에서 비율 유지 */
-    max-height: 100%; /* 틀 내부에서 비율 유지 */
-    object-fit: contain; /* 비율 유지하며 조정 */
+    max-width: 100%; /* 썸네일 틀에 맞춤 */
+    max-height: 100%; /* 썸네일 틀에 맞춤 */
+    object-fit: contain; /* 이미지 비율 유지하며 조정 */
+    display: block;
 }
 
 .thumbnail-number {
-    font-size: 0.9rem;
-    margin-top: 5px;
-    color: #555;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
     text-align: center;
 }
 
+/* 선택된 썸네일 번호 */
 .thumbnail-number.selected {
+    background-color: #007BFF; /* 파란색 배경 */
+    color: white; /* 흰색 글자 */
+    font-weight: bold;
+    border-radius: 4px; /* 강조된 모서리 */
+    padding: 2px 8px; /* 강조된 여백 */
+    font-size: 0.85rem; /* 조금 더 큰 글씨 */
+}
+
+/* 검색 필드 오버레이 */
+#thumbnailSearchOverlay {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 5px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    gap: 8px; /* 아이템 간 간격 */
+}
+
+#thumbnailSearchOverlay input {
+    width: 20px; /* 입력 상자 크기 */
+    font-size: 1.1rem;
+    font-weight: bold; /* 숫자 강조 제거 */
+    text-align: center;
+    color: #333; /* 기본 텍스트 색상 */
+    border: 2px solid #007BFF; /* 파란색 테두리 */
+    border-radius: 5px;
+    padding: 3px;
+    margin: 0;
+
+    /* 스핀 버튼 제거 */
+    -moz-appearance: textfield; /* Firefox */
+    appearance: textfield; /* 표준 브라우저 */
+}
+
+#thumbnailSearchOverlay input::-webkit-inner-spin-button, 
+#thumbnailSearchOverlay input::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* Chrome, Safari */
+    appearance: none; /* 표준 브라우저 */
+    margin: 0; /* 스핀 버튼 여백 제거 */
+}
+
+#thumbnailSearchOverlay input:focus {
+    outline: none;
+}
+
+#thumbnailSearchOverlay span {
+    font-size: 1rem;
+    font-weight: bold; /* 전체 페이지 숫자를 굵게 */
+    color: #333; /* 기본 텍스트 색상 */
+    margin: 0;
+    display: inline-block;
+}
+
+#thumbnailSearchOverlay button {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
     font-weight: bold;
     color: #007BFF;
+    cursor: pointer;
+    margin: 0;
+    padding: 0 5px;
+}
+
+#thumbnailSearchOverlay button:hover {
+    color: #0056b3;
+}
+
+#thumbnailSearchOverlay button:disabled {
+    color: #ccc;
+    cursor: not-allowed;
 }
 
 /* 중앙 작업 화면 레이아웃 */
