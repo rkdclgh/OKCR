@@ -92,12 +92,147 @@ async function handleFiles(files) {
     }
 }
 
+// 검색 필드 오버레이 설정
+function setupThumbnailSearchOverlay() {
+    const currentPageInput = document.getElementById('thumbnailCurrentPage');
+    const totalPagesSpan = document.getElementById('thumbnailTotalPages');
+    const prevPageButton = document.getElementById('prevPageButton');
+    const nextPageButton = document.getElementById('nextPageButton');
+
+    // 초기값 설정
+    totalPagesSpan.textContent = `/ ${images.length}`;
+    currentPageInput.value = currentImageIndex + 1;
+
+    // 현재 페이지 입력 이벤트
+    currentPageInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            const inputValue = parseInt(currentPageInput.value.trim(), 10);
+
+            // 유효성 검사
+            if (isNaN(inputValue) || inputValue < 1 || inputValue > images.length) {
+                alert(`1에서 ${images.length} 사이의 번호를 입력하세요.`);
+                currentPageInput.value = currentImageIndex + 1;
+                return;
+            }
+
+            // 페이지 이동
+            changeToPage(inputValue - 1);
+        }
+    });
+
+    // 이전 페이지 버튼 클릭 이벤트
+    prevPageButton.addEventListener('click', () => {
+        if (currentImageIndex > 0) {
+            changeToPage(currentImageIndex - 1);
+        }
+    });
+
+    // 다음 페이지 버튼 클릭 이벤트
+    nextPageButton.addEventListener('click', () => {
+        if (currentImageIndex < images.length - 1) {
+            changeToPage(currentImageIndex + 1);
+        }
+    });
+
+    // 페이지 이동 함수
+    function changeToPage(newIndex) {
+        // 선택된 썸네일으로 스크롤
+        const targetThumbnail = document.querySelector(
+            `.thumbnail-container:nth-child(${newIndex + 1})`
+        );
+
+        if (targetThumbnail) {
+            targetThumbnail.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'center',
+            });
+
+            // 선택된 썸네일 강조
+            document.querySelectorAll('.thumbnail-container').forEach((el) =>
+                el.classList.remove('selected')
+            );
+            targetThumbnail.classList.add('selected');
+
+            // 이미지 갱신
+            currentImageIndex = newIndex;
+            document.querySelector('.image-preview img').src = images[currentImageIndex];
+
+            // 검색 필드 값 갱신
+            currentPageInput.value = currentImageIndex + 1;
+
+            // 썸네일 번호 강조 업데이트
+            updateThumbnailNumbers();
+
+            // 이전/다음 버튼 활성화 상태 업데이트
+            updateButtonStates();
+        }
+    }
+
+    // 썸네일 번호 강조 업데이트 함수
+    function updateThumbnailNumbers() {
+        document.querySelectorAll('.thumbnail-number').forEach((num, index) => {
+            if (index === currentImageIndex) {
+                num.classList.add('selected'); // 현재 페이지 번호 강조
+            } else {
+                num.classList.remove('selected'); // 다른 번호는 강조 해제
+            }
+        });
+    }
+
+    // 이전/다음 버튼 활성화 상태 업데이트
+    function updateButtonStates() {
+        prevPageButton.disabled = currentImageIndex === 0;
+        nextPageButton.disabled = currentImageIndex === images.length - 1;
+    }
+
+    // 초기 버튼 상태 설정
+    updateButtonStates();
+    updateThumbnailNumbers(); // 썸네일 번호 강조 초기화
+}
+
+// 썸네일 선택 함수
+function selectThumbnail(index) {
+    currentImageIndex = index;
+
+    // 모든 썸네일 상태 초기화
+    document.querySelectorAll('.thumbnail-container').forEach((container, i) => {
+        container.classList.toggle('selected', i === index);
+    });
+
+    document.querySelectorAll('.thumbnail-number').forEach((num, i) => {
+        num.classList.toggle('selected', i === index);
+    });
+
+    // 중앙 이미지 변경
+    const previewImage = document.getElementById('previewImage');
+    previewImage.src = images[currentImageIndex];
+
+    // 검색 필드 업데이트
+    const searchInput = document.getElementById('thumbnailSearchInput');
+    searchInput.value = `${currentImageIndex + 1} / ${images.length}`;
+}
+
 // 작업 화면 렌더링
 function renderWorkScreen(loadedImages = []) {
     images = loadedImages;
 
     app.innerHTML = `
         <div class="work-area">
+            <!-- 검색 필드 동적 생성 -->
+            <div id="thumbnailSearchOverlay">
+                <button id="prevPageButton" class="search-button">&lt;</button>
+                <input 
+                    type="number" 
+                    id="thumbnailCurrentPage" 
+                    value="1" 
+                    min="1" 
+                    max="${images.length}" 
+                    aria-label="현재 페이지 입력">
+                <span id="thumbnailTotalPages">/ ${images.length}</span>
+                <button id="nextPageButton" class="search-button">&gt;</button>
+            </div>
+
             <!-- 썸네일 미리보기 -->
             <div class="thumbnail-grid">
                 ${images.map(
@@ -136,9 +271,11 @@ function renderWorkScreen(loadedImages = []) {
         </div>
     `;
 
+    // 검색 필드와 썸네일, 이미지 조작 기능 설정
     setupThumbnailEvents();
     setupZoomAndPan();
     setupToolboxEvents();
+    setupThumbnailSearchOverlay();
 }
 
 // 썸네일 클릭 이벤트
